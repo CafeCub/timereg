@@ -1,0 +1,17 @@
+.employee {
+  min-height: 100px;
+  text-align: center;
+  background-color: green;
+  margin-bottom: 25px;
+  padding: 15px;
+  border-radius: 4px;
+  font-size: 24px;
+  color: #fff;
+  display: block;
+}
+.employee:hover {
+  background-color: yellowgreen !important;
+}
+.employee.not-working{
+  background-color: grey;
+}

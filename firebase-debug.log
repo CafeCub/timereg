@@ -1,0 +1,41 @@
+[debug] [2018-06-13T03:52:29.804Z] ----------------------------------------------------------------------
+[debug] [2018-06-13T03:52:29.807Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\Mr-Trung\AppData\Roaming\npm\node_modules\firebase-tools\bin\firebase serve
+[debug] [2018-06-13T03:52:29.807Z] CLI Version:   3.18.6
+[debug] [2018-06-13T03:52:29.807Z] Platform:      win32
+[debug] [2018-06-13T03:52:29.807Z] Node Version:  v9.3.0
+[debug] [2018-06-13T03:52:29.807Z] Time:          Wed Jun 13 2018 10:52:29 GMT+0700 (SE Asia Standard Time)
+[debug] [2018-06-13T03:52:29.807Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2018-06-13T03:52:29.874Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2018-06-13T03:52:29.874Z] > authorizing via signed-in user
+[debug] [2018-06-13T03:52:29.876Z] > refreshing access token with scopes: ["email","https://www.googleapis.com/auth/cloud-platform","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","openid"]
+[debug] [2018-06-13T03:52:29.876Z] >>> HTTP REQUEST POST https://www.googleapis.com/oauth2/v3/token  
+ { refresh_token: '1/4bN0lny5hy8aULMMvv7U0jPS5tyE5JiVNWKKjQmpE_Q',
+  client_id: '563584335869-fgrhgmd47bqnekij5i8b5pr03ho849e6.apps.googleusercontent.com',
+  client_secret: 'j9iVZfS8kkCEFUPaAeJV0sAi',
+  grant_type: 'refresh_token',
+  scope: 'email https://www.googleapis.com/auth/cloud-platform https://www.googleapis.com/auth/cloudplatformprojects.readonly https://www.googleapis.com/auth/firebase openid' } 
+ Wed Jun 13 2018 10:52:29 GMT+0700 (SE Asia Standard Time)
+[debug] [2018-06-13T03:52:30.360Z] <<< HTTP RESPONSE 200
+[debug] [2018-06-13T03:52:30.405Z] >>> HTTP REQUEST GET https://admin.firebase.com/v1/projects/timereg-8cde1  
+  
+ Wed Jun 13 2018 10:52:30 GMT+0700 (SE Asia Standard Time)
+[debug] [2018-06-13T03:52:31.445Z] <<< HTTP RESPONSE 200
+[debug] [2018-06-13T03:52:31.446Z] >>> HTTP REQUEST GET https://admin.firebase.com/v1/database/timereg-8cde1/tokens  
+  
+ Wed Jun 13 2018 10:52:31 GMT+0700 (SE Asia Standard Time)
+[debug] [2018-06-13T03:52:32.368Z] <<< HTTP RESPONSE 200
+[debug] [2018-06-13T03:52:32.369Z] >>> HTTP REQUEST GET https://cloudresourcemanager.googleapis.com/v1/projects/timereg-8cde1  
+  
+ Wed Jun 13 2018 10:52:32 GMT+0700 (SE Asia Standard Time)
+[debug] [2018-06-13T03:52:33.607Z] <<< HTTP RESPONSE 200
+[info] 
+[info] === Serving from 'E:\Github\timereg'...
+[info] 
+[debug] [2018-06-13T03:52:33.613Z] >>> HTTP REQUEST GET https://mobilesdk-pa.googleapis.com/v1/projects/708842918053/clients/_:getWebAppConfig  
+  
+ Wed Jun 13 2018 10:52:33 GMT+0700 (SE Asia Standard Time)
+[debug] [2018-06-13T03:52:34.417Z] <<< HTTP RESPONSE 200
+[info] i  hosting: Serving hosting files from: public
+[info] +  hosting: Local server: http://localhost:5000
+
