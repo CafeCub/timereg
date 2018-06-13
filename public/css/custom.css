@@ -113,6 +113,9 @@ button:focus {
   from { opacity: 0.5; }
 }
 /*---employeed list---*/
+.list-with-add-button {
+    padding-bottom: 45px;
+}
 .employee-item {
     padding: 15px;
     border: 1px solid #ccc;
@@ -169,3 +172,6 @@ button:focus {
     vertical-align: text-bottom;
 }
 /*--- end employeed list---*/
+.loginpage, .loginpage body{
+  height: 100%;
+}

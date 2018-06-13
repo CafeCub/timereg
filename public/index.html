@@ -1,45 +1,34 @@
 <!DOCTYPE html>
-<html>
+<html class="loginpage">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Time Registration</title>
+    <title>Login</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
     <link rel="stylesheet" href="/css/custom.css">
   </head>
-  <body>
-    <nav class="navbar navbar-expand-sm navbar-dark bg-dark sticky-top" id="mainNav">
-      <div class="container-fluid">
-        <a class="navbar-brand" href="#page-top">CAFECUB <span class="small timehour ml-2">15:30 - 13/09/2018</span></a>
-        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"> <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarResponsive">
-          <ul class="navbar-nav ml-auto">
-            <li class="nav-item">
-              <a class="nav-link active" href="timereg.html">CHẤM CÔNG</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="employee-list.html">NHÂN VIÊN</a>
-            </li>
-						<li class="nav-item d-none">
-              <a class="nav-link" href="index.html">Đăng nhập</a>
-            </li>
-						<li class="nav-item">
-              <a class="nav-link small" href="#"><i class="fa sign-out-alt"></i> Thoát</a>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </nav>
-
-    <div class="mt-4" id="contentSection">
-      <div class="container-fluid">
-				<div class="row" id="employeeList">
-
-        </div>
-      </div>
+  <body class="d-flex flex-column align-items-center justify-content-center " style="background: #4a0056">
+    <div class="text-white">
+        <img width="200" height="105" src="http://cafecub.vn/wp-content/uploads/logo-cafeCub-forweb.png" class="header-logo-dark" alt="cafeCub">
+        <form>
+          <div class="form-group">
+            <label for="tendonvi">Tên đơn vị</label>
+            <input type="text" class="form-control" id="tendonvi" placeholder="Enter company">
+          </div>
+          <div class="form-group">
+            <label for="username">Tên đăng nhập </label>
+            <input type="text" class="form-control" id="username" placeholder="Enter username">
+            <small class="form-text text-danger d-none">Error password demo</small>
+          </div>
+          <div class="form-group">
+            <label for="password">Mật khẩu</label>
+            <input type="password" class="form-control" id="password" placeholder="Password">
+          </div>
+          <button type="submit" class="btn btn-primary btn-block">Đăng nhập</button>
+        </form>
     </div>
+
 
     <!-- update the version number as needed -->
     <script defer src="/__/firebase/5.0.4/firebase-app.js"></script>
@@ -55,29 +44,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
     <script>
-      $(document).ready(() => {
-        let app = firebase.app();
-        var db = firebase.firestore();
-        db.collection("employees").get().then((querySnapshot)=>{
-            querySnapshot.forEach((doc) => {
-                var data = doc.data();
-                $('<div class="col-6 col-sm-4 col-md-3 col-lg-2"><div class="employee" employee-id="' + doc.id + '">' + data.name + '</div></div>').appendTo('#employeeList');
-              });
-          });
-        $(document).on('click', '.employee', ((e)=>{
-            var ele = $(e.target);
-            db.collection("regTime").add({
-                employeeId: ele.attr('employee-id'),
-                isStarted: ele.hasClass('working')?true:false,
-                insertedAt: firebase.firestore.FieldValue.serverTimestamp()
-              }).then(function(docRef) {
-                  console.log("Document written with ID: ", docRef.id);
-                }).catch(function(error) {
-                    console.error("Error adding document: ", error);
-                  });
-            ele.toggleClass('working');
-          }));
-      });
+
     </script>
   </body>
 </html>
