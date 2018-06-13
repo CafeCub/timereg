@@ -5,12 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Nhân viên</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
     <link rel="stylesheet" href="/css/custom.css">
   </head>
   <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top" id="mainNav">
       <div class="container-fluid">
-        <a class="navbar-brand" href="#page-top">CAFECUB</a>
+        <a class="navbar-brand" href="#page-top">CAFECUB <span class="small timehour ml-2">15:30 - 13/09/2018</span></a>
         <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"> <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarResponsive">
@@ -21,18 +22,18 @@
             <li class="nav-item">
               <a class="nav-link active" href="employee-list.html">NHÂN VIÊN</a>
             </li>
-						<li class="nav-item">
-              <a class="nav-link" href="login.html">Đăng nhập</a>
+						<li class="nav-item d-none">
+              <a class="nav-link" href="index.html">Đăng nhập</a>
             </li>
 						<li class="nav-item">
-              <a class="nav-link d-none" href="logout.html">Logout</a>
+              <a class="nav-link small" href="#"><i class="fa fa-sign-out-alt"></i> Thoát</a>
             </li>
           </ul>
         </div>
       </div>
     </nav>
     <form>
-      <div class="form-group">
+      <div class="form-group mb-0">
           <input class="form-control searchbox" type="search" placeholder="Tìm tên" aria-label="Tìm tên">
       </div>
     </form>
@@ -41,7 +42,7 @@
 				<div id="employeeList"  class="">
 
         </div>
-        <button type="button" class="btn btn-primary floatbtn" onclick="createNewEmployee();">+</button>
+        <button type="button" class="btn btn-primary floatbtn" onclick="createNewEmployee();"><i class="fas fa-plus"></i></button>
       </div>
     </div>
 
@@ -57,7 +58,7 @@
           <div class="modal-body">
               <form>
                 <div class="form-group mb-0">
-                  <input type="text" class="form-control-plaintext text-muted" id="txtId" placeholder="ID" readonly>
+                  <input type="text" class="form-control-plaintext text-muted w-100" id="txtId" placeholder="ID" readonly>
                 </div>
                 <div class="form-group mb-2">
                   <label for="txtName">Tên</label>
@@ -140,7 +141,7 @@
         $('#employeeList').empty();
         employees.forEach((e) => {
           //$('<tr><td>'+e.id+'</td><td>'+e.name+'</td><td>$'+e.rate+'</td><td>'+e.isActived+'</td><td>'+e.insertedAt+'</td><td><a class="edit-employee" employee-id="'+e.id+'">edit</a></td></tr>').appendTo('.employee-list');
-          $('<div class="employee-item"><div class="employee-info"><div class="employee-id">'+e.id+'</div><div class="employee-name">'+e.name+'</div><div class="employee-title">Công việc: '+e.title+'</div><div class="employee-rate">'+e.rate+'</div><div class="employee-isActived">'+e.isActived+'</div><div class="employee-insertedAt">'+e.insertedAt+'</div></div><a class="edit-employee" employee-id="'+e.id+'">edit</a></div>').appendTo('#employeeList');
+          $('<div class="employee-item"><div class="employee-info"><div class="employee-id">'+e.id+'</div><div class="employee-name">'+e.name+'</div><div class="employee-title">Công việc: '+e.title+'</div><div class="employee-rate">'+e.rate+'</div><div class="employee-isActived">'+e.isActived+'</div><div class="employee-insertedAt">'+e.insertedAt+'</div></div><button class="btn btn-secondary btn-circle edit-employee" employee-id="'+e.id+'"><i class="fas fa-user-edit"></i></button><button class="btn btn-warning btn-circle ml-2" employee-id="'+e.id+'"><i class="far fa-sticky-note"></i></button></div>').appendTo('#employeeList');
         });
       }
       function saveDetail(){

@@ -161,4 +161,11 @@ button:focus {
   font-weight: bold;
   border-radius: 100px;
 }
+.btn-circle{
+  border-radius: 100px;
+  align-self: center;
+}
+.timehour {
+    vertical-align: text-bottom;
+}
 /*--- end employeed list---*/
