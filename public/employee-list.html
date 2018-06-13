@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Time Registration</title>
+    <title>Nhân viên</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
     <link rel="stylesheet" href="/css/custom.css">
   </head>
@@ -11,18 +11,18 @@
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top" id="mainNav">
       <div class="container-fluid">
         <a class="navbar-brand" href="#page-top">CAFECUB</a>
-        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><i class="fa fa-bars"></i>
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"> <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarResponsive">
           <ul class="navbar-nav ml-auto">
             <li class="nav-item">
-              <a class="nav-link" href="index.html">CHẤM CÔNG</a>
+              <a class="nav-link" href="timereg.html">CHẤM CÔNG</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="employee-list.html">NHÂN VIÊN</a>
+              <a class="nav-link active" href="employee-list.html">NHÂN VIÊN</a>
             </li>
 						<li class="nav-item">
-              <a class="nav-link" href="login.html">Login</a>
+              <a class="nav-link" href="login.html">Đăng nhập</a>
             </li>
 						<li class="nav-item">
               <a class="nav-link d-none" href="logout.html">Logout</a>
@@ -31,29 +31,17 @@
         </div>
       </div>
     </nav>
+    <form>
+      <div class="form-group">
+          <input class="form-control searchbox" type="search" placeholder="Tìm tên" aria-label="Tìm tên">
+      </div>
+    </form>
     <div class="mt-4" id="contentSection">
       <div class="container-fluid">
-        <div class="row">
-          <div class="col-12">
-            <table class="table table-striped table-responsive">
-                <caption>List of Employees</caption>
-                <thead class="thead-dark">
-                    <tr>
-                        <th>ID</th>
-                        <th>Name</th>
-                        <th>Rate</th>
-                        <th>Is Actived</th>
-                        <th>Inserted Date</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody class="employee-list">
-                </tbody>
-            </table>
+				<div id="employeeList"  class="">
 
-            <button type="button" class="btn btn-primary" onclick="createNewEmployee();">Add new employee</button>
-          </div>
         </div>
+        <button type="button" class="btn btn-primary floatbtn" onclick="createNewEmployee();">+</button>
       </div>
     </div>
 
@@ -61,36 +49,39 @@
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title">Employee Detail</h5>
+            <h5 class="modal-title">Chi tiết nhân viên</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
           <div class="modal-body">
               <form>
-                <div class="form-group">
-                  <label for="txtId">ID</label>
-                  <input type="text" class="form-control" id="txtId" readonly>
+                <div class="form-group mb-0">
+                  <input type="text" class="form-control-plaintext text-muted" id="txtId" placeholder="ID" readonly>
                 </div>
-                <div class="form-group">
-                  <label for="txtName">Name</label>
-                  <input type="text" class="form-control" id="txtName" placeholder="employee name">
+                <div class="form-group mb-2">
+                  <label for="txtName">Tên</label>
+                  <input type="text" class="form-control" id="txtName" placeholder="Name">
                 </div>
-                <div class="form-group">
-                    <label for="txtRate">Name</label>
-                    <input type="number" class="form-control" id="txtRate" placeholder="employee rate">
+                <div class="form-group mb-2">
+                  <label for="txtId">Chức danh</label>
+                  <input type="text" class="form-control" id="txtTitle" placeholder="Title">
+                </div>
+                <div class="form-group mb-2">
+                    <label for="txtRate">Bậc lương</label>
+                    <input type="number" class="form-control" id="txtRate" placeholder="Rate">
                   </div>
-                <div class="form-check">
+                <div class="form-check mb-2">
                   <label class="form-check-label">
                     <input type="checkbox" class="form-check-input" id="chbIsActived" checked="true">
-                    Is Actived
+                    Đang làm việc
                   </label>
                 </div>
               </form>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-primary" onclick="saveDetail();">Save</button>
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary" onclick="saveDetail();">Lưu lại</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Bỏ qua</button>
           </div>
         </div>
       </div>
@@ -146,9 +137,10 @@
         $('#chbIsActived').val(true);
       }
       function updateEmployeeList(employees){
-        $('.employee-list').empty();
+        $('#employeeList').empty();
         employees.forEach((e) => {
-          $('<tr><td>'+e.id+'</td><td>'+e.name+'</td><td>$'+e.rate+'</td><td>'+e.isActived+'</td><td>'+e.insertedAt+'</td><td><a class="edit-employee" employee-id="'+e.id+'">edit</a></td></tr>').appendTo('.employee-list');
+          //$('<tr><td>'+e.id+'</td><td>'+e.name+'</td><td>$'+e.rate+'</td><td>'+e.isActived+'</td><td>'+e.insertedAt+'</td><td><a class="edit-employee" employee-id="'+e.id+'">edit</a></td></tr>').appendTo('.employee-list');
+          $('<div class="employee-item"><div class="employee-info"><div class="employee-id">'+e.id+'</div><div class="employee-name">'+e.name+'</div><div class="employee-title">Công việc: '+e.title+'</div><div class="employee-rate">'+e.rate+'</div><div class="employee-isActived">'+e.isActived+'</div><div class="employee-insertedAt">'+e.insertedAt+'</div></div><a class="edit-employee" employee-id="'+e.id+'">edit</a></div>').appendTo('#employeeList');
         });
       }
       function saveDetail(){
