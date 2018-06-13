@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Time Registration</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+    <style>
+      .employee{
+        height: 40px;
+        line-height: 40px;
+        text-align: center;
+        background-color: green;
+        margin: 2px;
+      }
+      .not-working.employee{
+        background-color: grey;
+      }
+    </style>
+  </head>
+  <body class="container-fluid">
+    <div class="row" id="employeeList">
+
+    </div>
+    
+    <!-- update the version number as needed -->
+    <script defer src="/__/firebase/5.0.4/firebase-app.js"></script>
+    <!-- include only the Firebase features as you need -->
+    <!-- <script defer src="/__/firebase/5.0.4/firebase-auth.js"></script> -->
+    <!-- <script defer src="/__/firebase/5.0.4/firebase-database.js"></script> -->
+    <!-- <script defer src="/__/firebase/5.0.4/firebase-messaging.js"></script> -->
+    <!-- <script defer src="/__/firebase/5.0.4/firebase-storage.js"></script> -->
+    <script defer src="/__/firebase/5.0.4/firebase-firestore.js"></script>
+    <!-- initialize the SDK after all desired features are loaded -->
+    <script defer src="/__/firebase/init.js"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+    <script>
+      $(document).ready(() => {        
+        let app = firebase.app();
+        var db = firebase.firestore();
+        db.collection("employees").get().then((querySnapshot)=>{
+            querySnapshot.forEach((doc) => {
+                var data = doc.data();
+                $('<div class="col-md-3 col-sm-4 col-6 not-working employee" employee-id="' + doc.id + '">' + data.name + '</div>').appendTo('#employeeList');
+              });
+          });
+        $(document).on('click', '.employee', ((e)=>{
+            var ele = $(e.target);
+            db.collection("regTime").add({
+                employeeId: ele.attr('employee-id'),
+                isStarted: ele.hasClass('not-working')?true:false,
+                insertedAt: firebase.firestore.FieldValue.serverTimestamp()
+              }).then(function(docRef) {
+                  console.log("Document written with ID: ", docRef.id);
+                }).catch(function(error) {
+                    console.error("Error adding document: ", error);
+                  });
+            ele.toggleClass('not-working');
+          }));
+      });
+    </script>
+  </body>
+</html>

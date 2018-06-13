@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Time Registration</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+    <style>
+      .employee{
+        height: 40px;
+        line-height: 40px;
+        text-align: center;
+        background-color: green;
+        margin: 2px;
+      }
+      .not-working.employee{
+        background-color: grey;
+      }
+    </style>
+  </head>
+  <body class="container-fluid">
+    <table class="table table-striped">
+        <caption>List of Employees</caption>
+        <thead class="thead-dark">
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Rate</th>
+                <th>Is Actived</th>
+                <th>Inserted Date</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody class="employee-list">
+        </tbody>
+    </table>
+    <button type="button" class="btn btn-primary" onclick="createNewEmployee();">Add new employee</button>
+
+    <div id="detailModal" class="modal" tabindex="-1" role="dialog">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Employee Detail</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+              <form>
+                <div class="form-group">
+                  <label for="txtId">ID</label>
+                  <input type="text" class="form-control" id="txtId" readonly>
+                </div>
+                <div class="form-group">
+                  <label for="txtName">Name</label>
+                  <input type="text" class="form-control" id="txtName" placeholder="employee name">
+                </div>
+                <div class="form-group">
+                    <label for="txtRate">Name</label>
+                    <input type="number" class="form-control" id="txtRate" placeholder="employee rate">
+                  </div>
+                <div class="form-check">
+                  <label class="form-check-label">
+                    <input type="checkbox" class="form-check-input" id="chbIsActived" checked="true">
+                    Is Actived
+                  </label>
+                </div>
+              </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" onclick="saveDetail();">Save</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- update the version number as needed -->
+    <script defer src="/__/firebase/5.0.4/firebase-app.js"></script>
+    <!-- include only the Firebase features as you need -->
+    <!-- <script defer src="/__/firebase/5.0.4/firebase-auth.js"></script> -->
+    <!-- <script defer src="/__/firebase/5.0.4/firebase-database.js"></script> -->
+    <!-- <script defer src="/__/firebase/5.0.4/firebase-messaging.js"></script> -->
+    <!-- <script defer src="/__/firebase/5.0.4/firebase-storage.js"></script> -->
+    <script defer src="/__/firebase/5.0.4/firebase-firestore.js"></script>
+    <!-- initialize the SDK after all desired features are loaded -->
+    <script defer src="/__/firebase/init.js"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+    <script>
+      employees = [];
+      $(document).ready(() => {        
+        let app = firebase.app();
+        db = firebase.firestore();
+
+        db.collection("employees").get().then((querySnapshot)=>{
+            querySnapshot.forEach((doc) => {
+                var data = doc.data();
+                employees.push($.extend(data, {id: doc.id}));                
+              });
+            updateEmployeeList(employees);
+          });
+        $(document).on('click', '.edit-employee', ((e)=>{
+            var ele = $(e.target);
+            var em = employees.find((e)=>{return e.id == ele.attr('employee-id');});
+            if (em){
+              $('#txtId').val(em.id);
+              $('#txtName').val(em.name);
+              $('#txtRate').val(em.rate);
+              $('#chbIsActived').val(em.isActived);
+              $('#detailModal').modal({focus: true});
+            }else{alert('Something is wrong, please refresh the page.')}            
+          }));
+        
+          $('#detailModal').on('hidden.bs.modal', function (e) { resetModal();});
+      });
+      function createNewEmployee(){
+        $('#detailModal').modal({focus: true});
+      }
+      function resetModal(){
+        $('#txtId').val("");
+        $('#txtName').val("");
+        $('#txtRate').val("");
+        $('#chbIsActived').val(true);
+      }
+      function updateEmployeeList(employees){
+        $('.employee-list').empty();
+        employees.forEach((e) => {
+          $('<tr><td>'+e.id+'</td><td>'+e.name+'</td><td>$'+e.rate+'</td><td>'+e.isActived+'</td><td>'+e.insertedAt+'</td><td><a class="edit-employee" employee-id="'+e.id+'">edit</a></td></tr>').appendTo('.employee-list');
+        });
+      }
+      function saveDetail(){
+        var id = $('#txtId').val();
+        if (id == ""){
+          db.collection("employees").add({
+              name: $('#txtName').val(),
+              rate: $('#txtRate').val(),
+              isActived: $('#chbIsActived').prop("checked"),
+              insertedAt: firebase.firestore.FieldValue.serverTimestamp(), 
+              updatedAt: firebase.firestore.FieldValue.serverTimestamp(),
+              lastPaymentDate: firebase.firestore.FieldValue.serverTimestamp()
+            }).then(function(docRef) {
+                console.log("Document written with ID: ", docRef.id);
+                db.collection("employees").doc(docRef.id).get().then((em)=>{
+                  if(em.exists){
+                    employees.push($.extend(em.data(), {id: docRef.id}));
+                    updateEmployeeList(employees);
+                    $('#detailModal').modal('hide');
+                  }else{console.log('Added document cannot be found!');}
+                });                
+              }).catch(function(error) {
+                  console.error("Error adding document: ", error);
+                });
+        }else{
+          data = {name: $('#txtName').val(),
+              rate: $('#txtRate').val(),
+              isActived: $('#chbIsActived').prop("checked"),
+              updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+            };
+          db.collection("employees").doc(id).update(data).then(function(docRef) {
+                console.log("Document update with ID: ", id);
+                em = employees.find((e)=>{return e.id == id;});
+                em = $.extend(em, data);
+                updateEmployeeList(employees);
+                $('#detailModal').modal('hide');
+              }).catch(function(error) {
+                  console.error("Error adding document: ", error);
+                });
+        }
+      }
+    </script>
+  </body>
+</html>
