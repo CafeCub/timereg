@@ -41,15 +41,6 @@ body{
   background-image: linear-gradient(to bottom, #e4e4e4, #efefef);
   color: #999;
 }
-.employee:hover {
-  border-bottom: 5px solid #3b8e3f !important;
-  background: #8BC34A !important;
-  background-image: -webkit-linear-gradient(top, #8BC34A, #4CAF50) !important;
-  background-image: -moz-linear-gradient(top, #8BC34A, #4CAF50) !important;
-  background-image: -o-linear-gradient(top, #8BC34A, #4CAF50) !important;
-  background-image: linear-gradient(to bottom, #8BC34A, #4CAF50) !important;
-  color: #fff;
-}
 .employee.working{
   border-bottom: 5px solid #3b8e3f;
   background: #8BC34A;
@@ -59,15 +50,6 @@ body{
   background-image: linear-gradient(to bottom, #8BC34A, #4CAF50);
   color: #fff;
   animation: fadeIn 1s infinite alternate;
-}
-.employee.working:hover{
-  border-bottom: 5px solid #c7c7c7!important;
-  background: #e4e4e4!important;
-  background-image: -webkit-linear-gradient(top, #e4e4e4, #efefef)!important;
-  background-image: -moz-linear-gradient(top, #e4e4e4, #efefef)!important;
-  background-image: -o-linear-gradient(top, #e4e4e4, #efefef)!important;
-  background-image: linear-gradient(to bottom, #e4e4e4, #efefef)!important;
-  color: #999;
 }
 .employee:active,.employee.working:active
 {
@@ -102,6 +84,8 @@ button:focus {
 }
 .navbar-brand {
     margin-left: 1rem;
+    padding-top: 10px;
+    padding-bottom: 10px;
 }
 @media (min-width: 769px) {
   .employee {
@@ -117,6 +101,8 @@ button:focus {
     padding-bottom: 45px;
 }
 .employee-item {
+    text-decoration: none;
+    color: #333;
     padding: 15px;
     border: 1px solid #ccc;
     border-radius: 4px;
@@ -126,6 +112,12 @@ button:focus {
     display: flex;
     cursor: pointer;
 }
+.employee-item:hover {
+    text-decoration: none;
+    background: #9c27b0;
+    color: #ffffff;
+}
+
 .employee-info {
     flex: 1;
 }

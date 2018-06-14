@@ -42,7 +42,49 @@
 				<div id="employeeList"  class="list-with-add-button">
 
         </div>
-        <button type="button" class="btn btn-primary floatbtn" onclick="createNewEmployee();"><i class="fas fa-plus"></i></button>
+        <button type="button" class="btn btn-primary btn-lg floatbtn" onclick="createNewEmployee();"><i class="fas fa-plus"></i></button>
+      </div>
+    </div>
+
+    <div id="addNote" class="modal" tabindex="-1" role="dialog">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Chi tiết nhân viên</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+              <form>
+                <div class="form-group mb-0">
+                  <input type="text" class="form-control-plaintext text-muted w-100" id="txtId" placeholder="ID" readonly>
+                </div>
+                <div class="form-group mb-2">
+                  <label for="txtName">Tên</label>
+                  <input type="text" class="form-control" id="txtName" placeholder="Name">
+                </div>
+                <div class="form-group mb-2">
+                  <label for="txtTitle">Chức danh</label>
+                  <input type="text" class="form-control" id="txtTitle" placeholder="Title">
+                </div>
+                <div class="form-group mb-2">
+                    <label for="txtRate">Bậc lương</label>
+                    <input type="number" class="form-control" id="txtRate" placeholder="Rate">
+                  </div>
+                <div class="form-check mb-2">
+                  <label class="form-check-label">
+                    <input type="checkbox" class="form-check-input" id="chbIsActived" checked="true">
+                    Đang làm việc
+                  </label>
+                </div>
+              </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" onclick="saveDetail();">Lưu lại</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Bỏ qua</button>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -115,6 +157,7 @@
             updateEmployeeList(employees);
           });
         $(document).on('click', '.edit-employee', ((e)=>{
+            e.preventDefault();
             var ele = $(e.currentTarget);
             var em = employees.find((e)=>{return e.id == ele.attr('employee-id');});
             if (em){
@@ -143,7 +186,7 @@
         $('#employeeList').empty();
         employees.forEach((e) => {
           //$('<tr><td>'+e.id+'</td><td>'+e.name+'</td><td>$'+e.rate+'</td><td>'+e.isActived+'</td><td>'+e.insertedAt+'</td><td><a class="edit-employee" employee-id="'+e.id+'">edit</a></td></tr>').appendTo('.employee-list');
-          $('<div class="employee-item"><div class="employee-info"><div class="employee-id">'+e.id+'</div><div class="employee-name">'+e.name+'</div><div class="employee-title">Công việc: '+e.title+'</div><div class="employee-rate">'+e.rate+'</div><div class="employee-isActived">'+e.isActived+'</div><div class="employee-insertedAt">'+e.insertedAt+'</div></div><button class="btn btn-secondary btn-circle edit-employee" employee-id="'+e.id+'"><i class="fas fa-user-edit"></i></button><button class="btn btn-warning btn-circle ml-2" employee-id="'+e.id+'"><i class="far fa-sticky-note"></i></button></div>').appendTo('#employeeList');
+          $('<a href="employee.html" class="employee-item"><div class="employee-info"><div class="employee-id">'+e.id+'</div><div class="employee-name">'+e.name+'</div><div class="employee-title">Công việc: '+e.title+'</div><div class="employee-rate">'+e.rate+'</div><div class="employee-isActived">'+e.isActived+'</div><div class="employee-insertedAt">'+e.insertedAt+'</div></div><button class="btn btn-secondary btn-circle edit-employee" employee-id="'+e.id+'"><i class="fas fa-user-edit"></i></button><button class="btn btn-warning btn-circle ml-2" data-toggle="modal" data-target="#addNote" employee-id="'+e.id+'"><i class="far fa-sticky-note"></i></button></a>').appendTo('#employeeList');
         });
       }
       function saveDetail(){
