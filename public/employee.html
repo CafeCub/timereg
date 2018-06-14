@@ -32,17 +32,77 @@
         </div>
       </div>
     </nav>
-    <form>
-      <div class="form-group mb-0">
-          <input class="form-control searchbox" type="search" placeholder="Tìm tên" aria-label="Tìm tên">
-      </div>
-    </form>
-    <div class="mt-4" id="contentSection">
-      <div class="container-fluid">
-				<div id="employeeList"  class="list-with-add-button">
 
+    <div id="employeeInfo"  class="employee-detail-info">
+      <div class="employee-info">
+        <div class="employee-id d-none">QMLsAre4fxN87uASwdA5</div>
+        <div class="mb-1"><span class="employee-name lead font-weight-bold">Nguyen Huu Trung</span>
+        <button class="btn btn-link text-secondary btn-sm float-right edit-employee" employee-id="QMLsAre4fxN87uASwdA5"><i class="fas fa-edit"></i></button>
+      </div>
+        <div class="mb-1">
+          <span class="employee-title font-weight-bold">CEO</span> -
+          <span class="employee-isActived color-grey">Đang hoạt động</span>
         </div>
-        <button type="button" class="btn btn-primary btn-lg floatbtn" onclick="createNewEmployee();"><i class="fas fa-plus"></i></button>
+        <div class="mb-1">
+          Lương: <span class="employee-rate font-weight-bold">10000</span>/h -
+          Ngày lương: <span class="employee-insertedAt font-weight-bold">23/08/2016</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="d-flex flex-row submenu" id="submenu">
+      <a href="employee.html" class="p-2 w-50 text-center submenu-item menu-timereg active disabled">
+          Chấm công
+      </a>
+      <a href="employee-detail-note.html" class="submenu-item menu-note p-2 w-50 text-center">
+          Ghi chú
+      </a>
+    </div>
+
+    <div class="form-group mb-0">
+        <div class='input-group date' id='datetimepicker1'>
+            <input type='text' class="form-control searchbox" placeholder="Lọc theo ngày/tháng" />
+            <span class="input-group-addon">
+                <span class="fa fa-calendar text-secondary"></span>
+            </span>
+        </div>
+    </div>
+
+    <div class="" id="contentSection">
+      <div class="">
+				<div id="timeregList" class="">
+          <table class="table table-bordered table-light table-sm">
+            <thead>
+              <tr>
+                <th scope="col">Ngày</th>
+                <th scope="col">Giờ vào</th>
+                <th scope="col">Giờ ra</th>
+                <th scope="col">Tổng</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">16/08/2018</th>
+                <td>07:30</td>
+                <td>15:20</td>
+                <td>08:30</td>
+              </tr>
+              <tr>
+                <th scope="row">15/08/2018</th>
+                <td>07:30</td>
+                <td>15:20</td>
+                <td>08:30</td>
+              </tr>
+              <tr>
+                <th scope="row">14/08/2018</th>
+                <td>07:30</td>
+                <td>15:20</td>
+                <td>08:30</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
       </div>
     </div>
 

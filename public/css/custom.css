@@ -117,32 +117,41 @@ button:focus {
     background: #9c27b0;
     color: #ffffff;
 }
-
 .employee-info {
     flex: 1;
 }
-.employee-name {
+.employee-item .employee-name {
     font-size: 16px;
     line-height: 16px;
     font-weight: bold;
 }
 @media (min-width: 769px) {
-  .employee-name {
+  .employee-item .employee-name {
       font-size: 20px;
       line-height: 20px;
       font-weight: bold;
   }
 }
-.employee-title {
+.employee-item .employee-title {
     font-size: 14px;
     color: #cccccc;
 }
-.employee-id,.employee-rate,.employee-isActived,.employee-insertedAt{
+.employee-item .employee-id,.employee-item .employee-rate,.employee-item .employee-isActived,.employee-item .employee-insertedAt{
   display: none;
 }
 .edit-employee{
   cursor: pointer;
 }
+
+.employee-detail-info{
+  text-decoration: none;
+  color: #333;
+  padding: 15px;
+  border: 0;
+  border-radius: 0;
+  margin-bottom: 0;
+}
+
 .searchbox{
   background: #ffffff;
   border: none;
@@ -166,4 +175,19 @@ button:focus {
 /*--- end employeed list---*/
 .loginpage, .loginpage body{
   height: 100%;
+}
+.submenu-item{
+  background: #868e96;
+  text-decoration: none;
+  color: #000000;
+}
+.submenu-item.active{
+  background: #ffc107;
+  text-decoration: none;
+  cursor: default;
+}
+.submenu-item:hover{
+  background: #ffc107;
+  text-decoration: none;
+  color: #000000;
 }
