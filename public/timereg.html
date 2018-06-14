@@ -63,23 +63,37 @@
         let app = firebase.app();
         var db = firebase.firestore();
         db.collection("employees").get().then((querySnapshot)=>{
+          var htmlStr = "";
             querySnapshot.forEach((doc) => {
                 var data = doc.data();
-                $('<div class="col-6 col-sm-4 col-md-3 col-lg-2"><div class="employee" employee-id="' + doc.id + '">' + data.name + '</div></div>').appendTo('#employeeList');
+                var statusClass = data.lastReg && data.lastReg.isStarted ? " working": "";
+                htmlStr += '<div class="col-6 col-sm-4 col-md-3 col-lg-2"><div class="employee' + statusClass + '" employee-id="' + doc.id + '">' + data.name + '</div></div>';
               });
+            $(htmlStr).appendTo('#employeeList');
           });
         $(document).on('click', '.employee', ((e)=>{
-            var ele = $(e.target);
-            db.collection("regTime").add({
-                employeeId: ele.attr('employee-id'),
-                isStarted: ele.hasClass('working')?true:false,
+            var ele = $(e.currentTarget);
+            var eId= ele.attr('employee-id');
+            var batch = db.batch();
+            var regTimeDoc = db.collection("regTime").doc();
+            var isStarted = ele.hasClass('working')?false:true;
+            batch.set(regTimeDoc, {
+                employeeId: eId,
+                isStarted: isStarted,
                 insertedAt: firebase.firestore.FieldValue.serverTimestamp()
-              }).then(function(docRef) {
-                  console.log("Document written with ID: ", docRef.id);
+              });
+            batch.update(db.collection("employees").doc(eId), {
+                lastReg: {
+                  regTimeId: regTimeDoc.id,
+                  isStarted: isStarted},
+                updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+              })
+            batch.commit().then(function(docRef) {
+                  console.log("Document written with ID: ", docRef);
+                  ele.toggleClass('working');
                 }).catch(function(error) {
                     console.error("Error adding document: ", error);
                   });
-            ele.toggleClass('working');
           }));
       });
     </script>
