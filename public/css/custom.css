@@ -180,6 +180,8 @@ button:focus {
   background: #868e96;
   text-decoration: none;
   color: #000000;
+  padding: 15px;
+  font-weight: bold;
 }
 .submenu-item.active{
   background: #ffc107;
