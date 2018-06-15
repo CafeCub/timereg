@@ -57,6 +57,13 @@
           </div>
           <div class="modal-body">
               <form>
+                <div class="form-group mb-0">
+                  <input type="text" class="form-control-plaintext text-muted w-100" id="txtNoteId" placeholder="ID" readonly>
+                </div>
+                <div class="form-group mb-2">
+                  <label for="txtName">Tên</label>
+                  <input type="text" class="form-control" id="txtNoteName" placeholder="Name" readonly>
+                </div>
                 <div class="form-group mb-2">
                   <label for="txtReason">Lí do</label>
                   <input type="text" class="form-control" id="txtReason" placeholder="Lí do">
@@ -68,7 +75,7 @@
               </form>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-primary" onclick="saveDetail();">Lưu lại</button>
+            <button type="button" class="btn btn-primary" onclick="saveNoted();">Lưu lại</button>
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Bỏ qua</button>
           </div>
         </div>
@@ -157,16 +164,26 @@
             }else{alert('Something is wrong, please refresh the page.')}
           }));
 
-          $(document).on('click', '.add-note', ((e)=>{
-                e.preventDefault();
-                $('#addNoteModal').modal({focus: true});
-            }));
+        $(document).on('click', '.add-note', ((e)=>{
+            e.preventDefault();
+            var ele = $(e.currentTarget);
+            var em = employees.find((e)=>{return e.id == ele.attr('employee-id');});
+            if (em){
+              $('#txtNoteId').val(em.id);
+              $('#txtNoteName').val(em.name);
+              $('#txtReason').val("");
+              $('#txtAmount').val("");
+            }else{alert('Something is wrong, please refresh the page.')}
+            $('#addNoteModal').modal({focus: true});
+          }));
 
-          $('#detailModal').on('hidden.bs.modal', function (e) { resetModal();});
+        $('#detailModal').on('hidden.bs.modal', function (e) { resetModal();});
       });
+
       function createNewEmployee(){
         $('#detailModal').modal({focus: true});
       }
+
       function resetModal(){
         $('#txtId').val("");
         $('#txtName').val("");
@@ -174,19 +191,36 @@
         $('#txtTitle').val();
         $('#chbIsActived').val(true);
       }
+
       function updateEmployeeList(employees){
         $('#employeeList').empty();
+        var htmlStr = "";
         employees.forEach((e) => {
-          //$('<tr><td>'+e.id+'</td><td>'+e.name+'</td><td>$'+e.rate+'</td><td>'+e.isActived+'</td><td>'+e.insertedAt+'</td><td><a class="edit-employee" employee-id="'+e.id+'">edit</a></td></tr>').appendTo('.employee-list');
-          $('<a href="employee.html" class="employee-item"><div class="employee-info"><div class="employee-id">'+e.id+'</div><div class="employee-name">'+e.name+'</div><div class="employee-title">Công việc: '+e.title+'</div><div class="employee-rate">'+e.rate+'</div><div class="employee-isActived">'+e.isActived+'</div><div class="employee-insertedAt">'+e.insertedAt+'</div></div><button class="btn btn-secondary btn-circle edit-employee" employee-id="'+e.id+'"><i class="fas fa-user-edit"></i></button><button class="btn btn-warning btn-circle ml-2 add-note"><i class="far fa-sticky-note"></i></button></a>').appendTo('#employeeList');
+          htmlStr += '<a href="employee.html" class="employee-item"><div class="employee-info"><div class="employee-id">'+e.id+'</div><div class="employee-name">'+e.name+'</div><div class="employee-title">Công việc: '+e.title+'</div><div class="employee-rate">'+e.rate+'</div><div class="employee-isActived">'+e.isActived+'</div><div class="employee-insertedAt">'+e.insertedAt+'</div></div><button class="btn btn-secondary btn-circle edit-employee" employee-id="'+e.id+'"><i class="fas fa-user-edit"></i></button><button class="btn btn-warning btn-circle ml-2 add-note" employee-id="'+e.id+'"><i class="far fa-sticky-note"></i></button></a>';
         });
+        $(htmlStr).appendTo('#employeeList');
       }
+
+      function saveNoted(){
+        db.collection("notes").add({
+            employeeId: $('#txtNoteId').val(),
+            reason: $('#txtReason').val(),
+            amount: Number($('#txtAmount').val()),
+            insertedAt: firebase.firestore.FieldValue.serverTimestamp()
+          }).then(function(docRef) {
+              console.log("Document written with ID: ", docRef.id);
+              $('#addNoteModal').modal("hide");
+            }).catch(function(error) {
+                console.error("Error adding document: ", error);
+              });
+      }
+      
       function saveDetail(){
         var id = $('#txtId').val();
         if (id == ""){
           db.collection("employees").add({
               name: $('#txtName').val(),
-              rate: $('#txtRate').val(),
+              rate: Number($('#txtRate').val()),
               title: $('#txtTitle').val(),
               isActived: $('#chbIsActived').prop("checked"),
               insertedAt: firebase.firestore.FieldValue.serverTimestamp(),
