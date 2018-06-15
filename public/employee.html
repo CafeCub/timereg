@@ -1,278 +1,285 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Nhân viên</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
-    <link rel="stylesheet" href="/css/custom.css">
-  </head>
-  <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top" id="mainNav">
-      <div class="container-fluid">
-        <a class="navbar-brand" href="#page-top">CAFECUB <span class="small timehour ml-2">15:30 - 13/09/2018</span></a>
-        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"> <span class="navbar-toggler-icon"></span>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>Nhân viên</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb"
+    crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp"
+    crossorigin="anonymous">
+  <link rel="stylesheet" href="/css/custom.css">
+</head>
+
+<body>
+  <div id="divHeader"></div>
+
+  <div id="employeeInfo" class="employee-detail-info">
+    <div class="employee-info">
+      <div id="sId" class="employee-id d-none">QMLsAre4fxN87uASwdA5</div>
+      <div class="mb-1">
+        <span class="employee-name lead font-weight-bold" id="sName">Nguyen Huu Trung</span>
+        <button class="btn btn-link text-secondary btn-sm float-right edit-employee" onclick="editEmployeeDetail();">
+          <i class="fas fa-edit"></i>
         </button>
-        <div class="collapse navbar-collapse" id="navbarResponsive">
-          <ul class="navbar-nav ml-auto">
-            <li class="nav-item">
-              <a class="nav-link" href="timereg.html">CHẤM CÔNG</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link active" href="employee-list.html">NHÂN VIÊN</a>
-            </li>
-						<li class="nav-item d-none">
-              <a class="nav-link" href="index.html">Đăng nhập</a>
-            </li>
-						<li class="nav-item">
-              <a class="nav-link small" href="#"><i class="fa fa-sign-out-alt"></i> Thoát</a>
-            </li>
-          </ul>
-        </div>
       </div>
-    </nav>
-
-    <div id="employeeInfo"  class="employee-detail-info">
-      <div class="employee-info">
-        <div id="sId" class="employee-id d-none">QMLsAre4fxN87uASwdA5</div>
-        <div class="mb-1"><span class="employee-name lead font-weight-bold" id="sName">Nguyen Huu Trung</span>
-          <button class="btn btn-link text-secondary btn-sm float-right edit-employee" onclick="editEmployeeDetail();"><i class="fas fa-edit"></i></button>
-        </div>
-        <div class="mb-1">
-          <span class="employee-title font-weight-bold" id="sTitle">CEO</span> -
-          <span class="employee-isActived color-grey"id="sIsActived">Đang hoạt động</span>
-        </div>
-        <div class="mb-1">
-          Lương: <span class="employee-rate font-weight-bold" id="sRate">10000</span>/h -
-          Ngày lương cuối: <span class="employee-insertedAt font-weight-bold" id="sLastPaymentDate">23/08/2016</span>
-        </div>
+      <div class="mb-1">
+        <span class="employee-title font-weight-bold" id="sTitle">CEO</span> -
+        <span class="employee-isActived color-grey" id="sIsActived">Đang hoạt động</span>
+      </div>
+      <div class="mb-1">
+        Lương:
+        <span class="employee-rate font-weight-bold" id="sRate">10000</span>/h - Ngày lương cuối:
+        <span class="employee-insertedAt font-weight-bold" id="sLastPaymentDate">23/08/2016</span>
       </div>
     </div>
+  </div>
 
-    <div class="d-flex flex-row submenu" id="submenu">
-      <a href="employee.html" class="p-2 w-50 text-center submenu-item menu-timereg active disabled">
-          Chấm công
-      </a>
-      <a href="employee-detail-note.html" class="submenu-item menu-note p-2 w-50 text-center">
-          Ghi chú
-      </a>
+  <div class="d-flex flex-row submenu" id="submenu">
+    <a href="employee.html" class="p-2 w-50 text-center submenu-item menu-timereg active disabled">
+      Chấm công
+    </a>
+    <a href="employee-detail-note.html" class="submenu-item menu-note p-2 w-50 text-center">
+      Ghi chú
+    </a>
+  </div>
+
+  <div class="form-group mb-0">
+    <div class='input-group date' id='datetimepicker1'>
+      <input type='text' class="form-control searchbox" placeholder="Lọc theo ngày/tháng" />
+      <span class="input-group-addon">
+        <span class="fa fa-calendar text-secondary"></span>
+      </span>
     </div>
+  </div>
 
-    <div class="form-group mb-0">
-        <div class='input-group date' id='datetimepicker1'>
-            <input type='text' class="form-control searchbox" placeholder="Lọc theo ngày/tháng" />
-            <span class="input-group-addon">
-                <span class="fa fa-calendar text-secondary"></span>
-            </span>
+  <div class="">
+    <table class="table table-bordered table-light table-sm" id="tblTimeReg">
+      <thead>
+        <tr>
+          <th scope="col">Ngày</th>
+          <th scope="col">Giờ vào</th>
+          <th scope="col">Giờ ra</th>
+          <th scope="col">Tổng</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th scope="row">16/08/2018</th>
+          <td>07:30</td>
+          <td>15:20</td>
+          <td>08:30</td>
+        </tr>
+        <tr>
+          <th scope="row">15/08/2018</th>
+          <td>07:30</td>
+          <td>15:20</td>
+          <td>08:30</td>
+        </tr>
+        <tr>
+          <th scope="row">14/08/2018</th>
+          <td>07:30</td>
+          <td>15:20</td>
+          <td>08:30</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div id="addNoteModal" class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Thêm Ghi chú</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
         </div>
-    </div>
-
-    <div class="" id="contentSection">
-      <div class="">
-				<div id="timeregList" class="">
-          <table class="table table-bordered table-light table-sm">
-            <thead>
-              <tr>
-                <th scope="col">Ngày</th>
-                <th scope="col">Giờ vào</th>
-                <th scope="col">Giờ ra</th>
-                <th scope="col">Tổng</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <th scope="row">16/08/2018</th>
-                <td>07:30</td>
-                <td>15:20</td>
-                <td>08:30</td>
-              </tr>
-              <tr>
-                <th scope="row">15/08/2018</th>
-                <td>07:30</td>
-                <td>15:20</td>
-                <td>08:30</td>
-              </tr>
-              <tr>
-                <th scope="row">14/08/2018</th>
-                <td>07:30</td>
-                <td>15:20</td>
-                <td>08:30</td>
-              </tr>
-            </tbody>
-          </table>
+        <div class="modal-body">
+          <form>
+            <div class="form-group mb-2">
+              <label for="">Lí do</label>
+              <input type="text" class="form-control" id="txtReason" placeholder="Lí do">
+            </div>
+            <div class="form-group mb-2">
+              <label for="txtAmount">Số Tiền</label>
+              <input type="number" class="form-control" id="txtAmount" placeholder="Money">
+            </div>
+          </form>
         </div>
-
-      </div>
-    </div>
-
-    <div id="addNoteModal" class="modal" tabindex="-1" role="dialog">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title">Thêm Ghi chú</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body">
-              <form>
-                <div class="form-group mb-2">
-                  <label for="">Lí do</label>
-                  <input type="text" class="form-control" id="txtReason" placeholder="Lí do">
-                </div>
-                <div class="form-group mb-2">
-                  <label for="txtAmount">Số Tiền</label>
-                  <input type="number" class="form-control" id="txtAmount" placeholder="Money">
-                </div>
-              </form>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-primary" onclick="saveDetail();">Lưu lại</button>
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Bỏ qua</button>
-          </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" onclick="saveDetail();">Lưu lại</button>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Bỏ qua</button>
         </div>
       </div>
     </div>
+  </div>
 
-    <div id="detailModal" class="modal" tabindex="-1" role="dialog">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title">Chi tiết nhân viên</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body">
-              <form>
-                <div class="form-group mb-0">
-                  <input type="text" class="form-control-plaintext text-muted w-100" id="txtId" placeholder="ID" readonly>
-                </div>
-                <div class="form-group mb-2">
-                  <label for="txtName">Tên</label>
-                  <input type="text" class="form-control" id="txtName" placeholder="Name">
-                </div>
-                <div class="form-group mb-2">
-                  <label for="txtTitle">Chức danh</label>
-                  <input type="text" class="form-control" id="txtTitle" placeholder="Title">
-                </div>
-                <div class="form-group mb-2">
-                    <label for="txtRate">Bậc lương</label>
-                    <input type="number" class="form-control" id="txtRate" placeholder="Rate">
-                  </div>
-                <div class="form-check mb-2">
-                  <label class="form-check-label">
-                    <input type="checkbox" class="form-check-input" id="chbIsActived" checked="true">
-                    Đang làm việc
-                  </label>
-                </div>
-              </form>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-primary" onclick="saveDetail();">Lưu lại</button>
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Bỏ qua</button>
-          </div>
+  <div id="detailModal" class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Chi tiết nhân viên</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="form-group mb-0">
+              <input type="text" class="form-control-plaintext text-muted w-100" id="txtId" placeholder="ID" readonly>
+            </div>
+            <div class="form-group mb-2">
+              <label for="txtName">Tên</label>
+              <input type="text" class="form-control" id="txtName" placeholder="Name">
+            </div>
+            <div class="form-group mb-2">
+              <label for="txtTitle">Chức danh</label>
+              <input type="text" class="form-control" id="txtTitle" placeholder="Title">
+            </div>
+            <div class="form-group mb-2">
+              <label for="txtRate">Bậc lương</label>
+              <input type="number" class="form-control" id="txtRate" placeholder="Rate">
+            </div>
+            <div class="form-check mb-2">
+              <label class="form-check-label">
+                <input type="checkbox" class="form-check-input" id="chbIsActived" checked="true"> Đang làm việc
+              </label>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" onclick="saveDetail();">Lưu lại</button>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Bỏ qua</button>
         </div>
       </div>
     </div>
+  </div>
 
-    <!-- update the version number as needed -->
-    <script defer src="/__/firebase/5.0.4/firebase-app.js"></script>
-    <!-- include only the Firebase features as you need -->
-    <!-- <script defer src="/__/firebase/5.0.4/firebase-auth.js"></script> -->
-    <!-- <script defer src="/__/firebase/5.0.4/firebase-database.js"></script> -->
-    <!-- <script defer src="/__/firebase/5.0.4/firebase-messaging.js"></script> -->
-    <!-- <script defer src="/__/firebase/5.0.4/firebase-storage.js"></script> -->
-    <script defer src="/__/firebase/5.0.4/firebase-firestore.js"></script>
-    <!-- initialize the SDK after all desired features are loaded -->
-    <script defer src="/__/firebase/init.js"></script>
-    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
-    <script>
-      employees = [];
-      $(document).ready(() => {
-        $('#divHeader').load('header.html', () =>{
-              // do code after load here
-              alert('load completed');
-            });
-          firebase.firestore().enablePersistence().then(function() {
-                // Initialize Cloud Firestore through firebase
-                db = firebase.firestore();
-                initialize(db);
-            }).catch(function(err) {
-                console.warn("Cannot enable offline persistance");
-                if (err.code == 'failed-precondition') {
-                    console.log("Multiple tabs open, persistence can only be enabled in one tab at a a time");
-                } else if (err.code == 'unimplemented') {
-                    console.log("The current browser does not support all of the features required to enable persistence");
-                }
-                db = firebase.firestore();
-                initialize(db);
-            });
+  <!-- update the version number as needed -->
+  <script defer src="/__/firebase/5.0.4/firebase-app.js"></script>
+  <!-- include only the Firebase features as you need -->
+  <!-- <script defer src="/__/firebase/5.0.4/firebase-auth.js"></script> -->
+  <!-- <script defer src="/__/firebase/5.0.4/firebase-database.js"></script> -->
+  <!-- <script defer src="/__/firebase/5.0.4/firebase-messaging.js"></script> -->
+  <!-- <script defer src="/__/firebase/5.0.4/firebase-storage.js"></script> -->
+  <script defer src="/__/firebase/5.0.4/firebase-firestore.js"></script>
+  <!-- initialize the SDK after all desired features are loaded -->
+  <script defer src="/__/firebase/init.js"></script>
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh"
+    crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ"
+    crossorigin="anonymous"></script>
+  <script>
+    $(document).ready(() => {
+      $('#divHeader').load('header.html', () => {
+        $("#navbarResponsive li.nav-item a.nav-link[href='/employee-list.html']").addClass("active");
       });
+      firebase.firestore().enablePersistence().then(function () {
+        // Initialize Cloud Firestore through firebase
+        db = firebase.firestore();
+        initialize(db);
+      }).catch(function (err) {
+        console.warn("Cannot enable offline persistance");
+        if (err.code == 'failed-precondition') {
+          console.log("Multiple tabs open, persistence can only be enabled in one tab at a a time");
+        } else if (err.code == 'unimplemented') {
+          console.log("The current browser does not support all of the features required to enable persistence");
+        }
+        db = firebase.firestore();
+        initialize(db);
+      });
+    });
 
-      function initialize(db){
-        var eId = getUrlParameter("eId");
-        if(eId){
-          db.collection("employees").doc(eId).get().then(function(doc) {
-              if (doc.exists) {
-                employee = $.extend(doc.data(), {id: eId});
-                console.log("Document data:", employee);
-                updateEmployeeData(employee);
-              } else {
-                // doc.data() will be undefined in this case
-                console.log("No such document!");
-              }
-            }).catch(function(error) {
-              console.log("Error getting document:", error);
-            });
-        }else{alert("Invalid session, please go back to where you are!!!")}
-      }
+    function initialize(db) {
+      var eId = getUrlParameter("eId");
+      if (eId) {
+        db.collection("employees").doc(eId).get().then(function (doc) {
+          if (doc.exists) {
+            employee = $.extend(doc.data(), { id: eId });
+            console.log("Document data:", employee);
+            updateEmployeeData(employee);
+          } else {
+            // doc.data() will be undefined in this case
+            console.log("No such document!");
+          }
+        }).catch(function (error) {
+          console.log("Error getting document:", error);
+        });
+        loadTimeReg(eId);
+      } else { alert("Invalid session, please go back to where you are!!!") }
+    }
 
-      function editEmployeeDetail(){
-        $('#txtId').val(employee.id);
-        $('#txtName').val(employee.name);
-        $('#txtRate').val(employee.rate);
-        $('#txtTitle').val(employee.title);
-        $('#chbIsActived').val(employee.isActived);
-        $('#detailModal').modal({focus: true});
+    function loadTimeReg(eId) {
+      db.collection("regTime").where("employeeId", "==", eId).get().then((docs) => {
+        var records = [];
+        docs.forEach((doc) => { records.push($.extend({ id: doc.id }, doc.data())) });
+        records.sort((a, b) => { return a.startAt < b.startAt; });
+        var htmlStr = "";
+        records.forEach((r) => { htmlStr += '<tr trId="' + r.id + '"><th scope="row">' + r.startAt.toDateString() + '</th><td>' + r.startAt.toLocaleTimeString() + '</td><td>' + r.endAt.toLocaleTimeString() + '</td><td>' + getDurationString(r.endAt - r.startAt) + '</td></tr>'; });
+        $("#tblTimeReg tbody").empty();
+        $(htmlStr).appendTo("#tblTimeReg tbody");
+      }).catch(function (error) { console.log("Error getting documents:", error); });
+    }
+
+    function getDurationString(milisecond) {
+      var d = Math.floor(milisecond / 1000);
+      var temp = d % 60;
+      var result = (temp > 9 ? temp.toString() : "0" + temp);
+      temp = Math.floor(d / 60) % 60;
+      if(temp == 0){result = "00 : "+ result;}else{result = (temp > 9 ? temp.toString() : "0" + temp) + " : " + result;}
+      temp = Math.floor(d / 3600);
+      if(temp == 0){result = "00 : "+ result;}else{result = (temp > 9 ? temp.toString() : "0" + temp) + " : " + result;}
+      return result;
+    }
+
+    function editEmployeeDetail() {
+      $('#txtId').val(employee.id);
+      $('#txtName').val(employee.name);
+      $('#txtRate').val(employee.rate);
+      $('#txtTitle').val(employee.title);
+      $('#chbIsActived').val(employee.isActived);
+      $('#detailModal').modal({ focus: true });
+    };
+
+    function getUrlParameter(name) {
+      name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
+      var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
+      var results = regex.exec(location.search);
+      return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
+    }
+
+    function updateEmployeeData(e) {
+      $("#sId").text(e.id);
+      $("#sName").text(e.name);
+      $("#sRate").text(e.rate);
+      $("#sTitle").text(e.title);
+      $("#sLastPaymentDate").text(e.lastPaymentDate);
+      $("#sIsActived").text(e.isActived ? "Đang làm việc" : "Ngưng làm việc");
+    }
+
+    function saveDetail() {
+      var id = employee.id;
+      data = {
+        name: $('#txtName').val(),
+        rate: $('#txtRate').val(),
+        title: $('#txtTitle').val(),
+        isActived: $('#chbIsActived').prop("checked"),
+        updatedAt: firebase.firestore.FieldValue.serverTimestamp()
       };
+      db.collection("employees").doc(id).update(data).then(function (docRef) {
+        console.log("Document update with ID: ", id);
+        employee = $.extend(employee, data);
+        updateEmployeeData(employee);
+        $('#detailModal').modal('hide');
+      }).catch(function (error) {
+        console.error("Error adding document: ", error);
+      });
+    }
+  </script>
+</body>
 
-      function getUrlParameter(name) {
-        name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
-        var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
-        var results = regex.exec(location.search);
-        return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
-      }
-
-      function updateEmployeeData(e){
-        $("#sId").text(e.id);
-        $("#sName").text(e.name);
-        $("#sRate").text(e.rate);
-        $("#sTitle").text(e.title);
-        $("#sLastPaymentDate").text(e.lastPaymentDate);
-        $("#sIsActived").text(e.isActived?"Đang làm việc":"Ngưng làm việc");
-      }
-
-      function saveDetail(){
-        var id = employee.id;
-        data = {name: $('#txtName').val(),
-            rate: $('#txtRate').val(),
-            title: $('#txtTitle').val(),
-            isActived: $('#chbIsActived').prop("checked"),
-            updatedAt: firebase.firestore.FieldValue.serverTimestamp()
-          };
-        db.collection("employees").doc(id).update(data).then(function(docRef) {
-              console.log("Document update with ID: ", id);
-              employee = $.extend(employee, data);
-              updateEmployeeData(employee);
-              $('#detailModal').modal('hide');
-            }).catch(function(error) {
-                console.error("Error adding document: ", error);
-              });
-      }
-    </script>
-  </body>
 </html>
