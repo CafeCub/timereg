@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="/css/custom.css">
   </head>
   <body>
+    <div id="divHeader"></div>
     <nav class="navbar navbar-expand-sm navbar-dark bg-dark sticky-top" id="mainNav">
       <div class="container-fluid">
         <a class="navbar-brand" href="#page-top">CAFECUB <span class="small timehour ml-2">15:30 - 13/09/2018</span></a>
@@ -55,11 +56,15 @@
     <script defer src="/__/firebase/5.0.4/firebase-firestore.js"></script>
     <!-- initialize the SDK after all desired features are loaded -->
     <script defer src="/__/firebase/init.js"></script>
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
     <script>
       $(document).ready(() => {
+        $('#divHeader').load('header.html', () =>{
+            // do code after load here
+            alert('load completed');
+          });
         let app = firebase.app();
         var db = firebase.firestore();
         db.collection("employees").get().then((querySnapshot)=>{
