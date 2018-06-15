@@ -216,7 +216,7 @@
         $('#employeeList').empty();
         var htmlStr = "";
         employees.forEach((e) => {
-          htmlStr += '<a href="employee.html" class="employee-item"><div class="employee-info"><div class="employee-id">'+e.id+'</div><div class="employee-name">'+e.name+'</div><div class="employee-title">Công việc: '+e.title+'</div><div class="employee-rate">'+e.rate+'</div><div class="employee-isActived">'+e.isActived+'</div><div class="employee-insertedAt">'+e.insertedAt+'</div></div><button class="btn btn-secondary btn-circle edit-employee" employee-id="'+e.id+'"><i class="fas fa-user-edit"></i></button><button class="btn btn-warning btn-circle ml-2 add-note" employee-id="'+e.id+'"><i class="far fa-sticky-note"></i></button></a>';
+          htmlStr += '<a href="employee.html?eId='+e.id+'" class="employee-item"><div class="employee-info"><div class="employee-id">'+e.id+'</div><div class="employee-name">'+e.name+'</div><div class="employee-title">Công việc: '+e.title+'</div><div class="employee-rate">'+e.rate+'</div><div class="employee-isActived">'+e.isActived+'</div><div class="employee-insertedAt">'+e.insertedAt+'</div></div><button class="btn btn-secondary btn-circle edit-employee" employee-id="'+e.id+'"><i class="fas fa-user-edit"></i></button><button class="btn btn-warning btn-circle ml-2 add-note" employee-id="'+e.id+'"><i class="far fa-sticky-note"></i></button></a>';
         });
         $(htmlStr).appendTo('#employeeList');
       }

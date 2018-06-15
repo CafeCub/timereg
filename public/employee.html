@@ -35,17 +35,17 @@
 
     <div id="employeeInfo"  class="employee-detail-info">
       <div class="employee-info">
-        <div class="employee-id d-none">QMLsAre4fxN87uASwdA5</div>
-        <div class="mb-1"><span class="employee-name lead font-weight-bold">Nguyen Huu Trung</span>
-        <button class="btn btn-link text-secondary btn-sm float-right edit-employee" employee-id="QMLsAre4fxN87uASwdA5"><i class="fas fa-edit"></i></button>
-      </div>
-        <div class="mb-1">
-          <span class="employee-title font-weight-bold">CEO</span> -
-          <span class="employee-isActived color-grey">Đang hoạt động</span>
+        <div id="sId" class="employee-id d-none">QMLsAre4fxN87uASwdA5</div>
+        <div class="mb-1"><span class="employee-name lead font-weight-bold" id="sName">Nguyen Huu Trung</span>
+          <button class="btn btn-link text-secondary btn-sm float-right edit-employee" onclick="editEmployeeDetail();"><i class="fas fa-edit"></i></button>
         </div>
         <div class="mb-1">
-          Lương: <span class="employee-rate font-weight-bold">10000</span>/h -
-          Ngày lương: <span class="employee-insertedAt font-weight-bold">23/08/2016</span>
+          <span class="employee-title font-weight-bold" id="sTitle">CEO</span> -
+          <span class="employee-isActived color-grey"id="sIsActived">Đang hoạt động</span>
+        </div>
+        <div class="mb-1">
+          Lương: <span class="employee-rate font-weight-bold" id="sRate">10000</span>/h -
+          Ngày lương cuối: <span class="employee-insertedAt font-weight-bold" id="sLastPaymentDate">23/08/2016</span>
         </div>
       </div>
     </div>
@@ -118,12 +118,12 @@
           <div class="modal-body">
               <form>
                 <div class="form-group mb-2">
-                  <label for="txtName">Lí do</label>
-                  <input type="text" class="form-control" id="txtName" placeholder="Lí do">
+                  <label for="">Lí do</label>
+                  <input type="text" class="form-control" id="txtReason" placeholder="Lí do">
                 </div>
                 <div class="form-group mb-2">
-                  <label for="txtRate">Số Tiền</label>
-                  <input type="number" class="form-control" id="txtRate" placeholder="Money">
+                  <label for="txtAmount">Số Tiền</label>
+                  <input type="number" class="form-control" id="txtAmount" placeholder="Money">
                 </div>
               </form>
           </div>
@@ -193,94 +193,85 @@
     <script>
       employees = [];
       $(document).ready(() => {
-        let app = firebase.app();
-        db = firebase.firestore();
-
-        db.collection("employees").get().then((querySnapshot)=>{
-            querySnapshot.forEach((doc) => {
-                var data = doc.data();
-                employees.push($.extend(data, {id: doc.id}));
-              });
-            updateEmployeeList(employees);
-          });
-        $(document).on('click', '.edit-employee', ((e)=>{
-            e.preventDefault();
-            var ele = $(e.currentTarget);
-            var em = employees.find((e)=>{return e.id == ele.attr('employee-id');});
-            if (em){
-              $('#txtId').val(em.id);
-              $('#txtName').val(em.name);
-              $('#txtRate').val(em.rate);
-              $('#txtTitle').val(em.title);
-              $('#chbIsActived').val(em.isActived);
-              $('#detailModal').modal({focus: true});
-            }else{alert('Something is wrong, please refresh the page.')}
-          }));
-
-          $(document).on('click', '.add-note', ((e)=>{
-                e.preventDefault();
-                $('#addNoteModal').modal({focus: true});
-            }));
-
-          $('#detailModal').on('hidden.bs.modal', function (e) { resetModal();});
+        $('#divHeader').load('header.html', () =>{
+              // do code after load here
+              alert('load completed');
+            });
+          firebase.firestore().enablePersistence().then(function() {
+                // Initialize Cloud Firestore through firebase
+                db = firebase.firestore();
+                initialize(db);
+            }).catch(function(err) {
+                console.warn("Cannot enable offline persistance");
+                if (err.code == 'failed-precondition') {
+                    console.log("Multiple tabs open, persistence can only be enabled in one tab at a a time");
+                } else if (err.code == 'unimplemented') {
+                    console.log("The current browser does not support all of the features required to enable persistence");
+                }
+                db = firebase.firestore();
+                initialize(db);
+            });
       });
-      function createNewEmployee(){
+
+      function initialize(db){
+        var eId = getUrlParameter("eId");
+        if(eId){
+          db.collection("employees").doc(eId).get().then(function(doc) {
+              if (doc.exists) {
+                employee = $.extend(doc.data(), {id: eId});
+                console.log("Document data:", employee);
+                updateEmployeeData(employee);
+              } else {
+                // doc.data() will be undefined in this case
+                console.log("No such document!");
+              }
+            }).catch(function(error) {
+              console.log("Error getting document:", error);
+            });
+        }else{alert("Invalid session, please go back to where you are!!!")}
+      }
+
+      function editEmployeeDetail(){
+        $('#txtId').val(employee.id);
+        $('#txtName').val(employee.name);
+        $('#txtRate').val(employee.rate);
+        $('#txtTitle').val(employee.title);
+        $('#chbIsActived').val(employee.isActived);
         $('#detailModal').modal({focus: true});
+      };
+
+      function getUrlParameter(name) {
+        name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
+        var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
+        var results = regex.exec(location.search);
+        return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
       }
-      function resetModal(){
-        $('#txtId').val("");
-        $('#txtName').val("");
-        $('#txtRate').val("");
-        $('#txtTitle').val();
-        $('#chbIsActived').val(true);
+
+      function updateEmployeeData(e){
+        $("#sId").text(e.id);
+        $("#sName").text(e.name);
+        $("#sRate").text(e.rate);
+        $("#sTitle").text(e.title);
+        $("#sLastPaymentDate").text(e.lastPaymentDate);
+        $("#sIsActived").text(e.isActived?"Đang làm việc":"Ngưng làm việc");
       }
-      function updateEmployeeList(employees){
-        $('#employeeList').empty();
-        employees.forEach((e) => {
-          //$('<tr><td>'+e.id+'</td><td>'+e.name+'</td><td>$'+e.rate+'</td><td>'+e.isActived+'</td><td>'+e.insertedAt+'</td><td><a class="edit-employee" employee-id="'+e.id+'">edit</a></td></tr>').appendTo('.employee-list');
-          $('<a href="employee.html" class="employee-item"><div class="employee-info"><div class="employee-id">'+e.id+'</div><div class="employee-name">'+e.name+'</div><div class="employee-title">Công việc: '+e.title+'</div><div class="employee-rate">'+e.rate+'</div><div class="employee-isActived">'+e.isActived+'</div><div class="employee-insertedAt">'+e.insertedAt+'</div></div><button class="btn btn-secondary btn-circle edit-employee" employee-id="'+e.id+'"><i class="fas fa-user-edit"></i></button><button class="btn btn-warning btn-circle ml-2 add-note"><i class="far fa-sticky-note"></i></button></a>').appendTo('#employeeList');
-        });
-      }
+
       function saveDetail(){
-        var id = $('#txtId').val();
-        if (id == ""){
-          db.collection("employees").add({
-              name: $('#txtName').val(),
-              rate: $('#txtRate').val(),
-              title: $('#txtTitle').val(),
-              isActived: $('#chbIsActived').prop("checked"),
-              insertedAt: firebase.firestore.FieldValue.serverTimestamp(),
-              updatedAt: firebase.firestore.FieldValue.serverTimestamp(),
-              lastPaymentDate: firebase.firestore.FieldValue.serverTimestamp()
-            }).then(function(docRef) {
-                console.log("Document written with ID: ", docRef.id);
-                db.collection("employees").doc(docRef.id).get().then((em)=>{
-                  if(em.exists){
-                    employees.push($.extend(em.data(), {id: docRef.id}));
-                    updateEmployeeList(employees);
-                    $('#detailModal').modal('hide');
-                  }else{console.log('Added document cannot be found!');}
-                });
-              }).catch(function(error) {
-                  console.error("Error adding document: ", error);
-                });
-        }else{
-          data = {name: $('#txtName').val(),
-              rate: $('#txtRate').val(),
-              title: $('#txtTitle').val(),
-              isActived: $('#chbIsActived').prop("checked"),
-              updatedAt: firebase.firestore.FieldValue.serverTimestamp()
-            };
-          db.collection("employees").doc(id).update(data).then(function(docRef) {
-                console.log("Document update with ID: ", id);
-                em = employees.find((e)=>{return e.id == id;});
-                em = $.extend(em, data);
-                updateEmployeeList(employees);
-                $('#detailModal').modal('hide');
-              }).catch(function(error) {
-                  console.error("Error adding document: ", error);
-                });
-        }
+        var id = employee.id;
+        data = {name: $('#txtName').val(),
+            rate: $('#txtRate').val(),
+            title: $('#txtTitle').val(),
+            isActived: $('#chbIsActived').prop("checked"),
+            updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+          };
+        db.collection("employees").doc(id).update(data).then(function(docRef) {
+              console.log("Document update with ID: ", id);
+              employee = $.extend(employee, data);
+              updateEmployeeData(employee);
+              $('#detailModal').modal('hide');
+            }).catch(function(error) {
+                console.error("Error adding document: ", error);
+              });
       }
     </script>
   </body>
