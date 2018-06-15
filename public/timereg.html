@@ -61,14 +61,29 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
     <script>
       $(document).ready(() => {
-        $('#divHeader').load('header.html', () =>{
-            // do code after load here
-            alert('load completed');
-          });
-        let app = firebase.app();
-        var db = firebase.firestore();
+          $('#divHeader').load('header.html', () =>{
+              // do code after load here
+              alert('load completed');
+            });
+          firebase.firestore().enablePersistence().then(function() {
+                // Initialize Cloud Firestore through firebase
+                db = firebase.firestore();
+                initialize(db);
+            }).catch(function(err) {
+                console.warn("Cannot enable offline persistance");
+                if (err.code == 'failed-precondition') {
+                    console.log("Multiple tabs open, persistence can only be enabled in one tab at a a time");
+                } else if (err.code == 'unimplemented') {
+                    console.log("The current browser does not support all of the features required to enable persistence");
+                }
+                db = firebase.firestore();
+                initialize(db);
+            });        
+        });
+
+      function initialize(db){
         db.collection("employees").get().then((querySnapshot)=>{
-          var htmlStr = "";
+            var htmlStr = "";
             querySnapshot.forEach((doc) => {
                 var data = doc.data();
                 var statusClass = "";
@@ -113,13 +128,13 @@
               ele.attr('time-reg-id', regTimeDoc.id);
             }
             batch.commit().then(function(docRef) {
-                  console.log("Document written with ID: ", docRef);
-                  ele.toggleClass('working');
-                }).catch(function(error) {
-                    console.error("Error adding document: ", error);
-                  });
+                console.log("Document written with ID: ", docRef);
+                ele.toggleClass('working');
+              }).catch(function(error) {
+                  console.error("Error adding document: ", error);
+                });
           }));
-      });
+      }
     </script>
   </body>
 </html>

@@ -140,9 +140,29 @@
     <script>
       employees = [];
       $(document).ready(() => {
-        let app = firebase.app();
-        db = firebase.firestore();
+          let app = firebase.app();
+          db = firebase.firestore();
+          $('#divHeader').load('header.html', () =>{
+              // do code after load here
+              alert('load completed');
+            });
+          firebase.firestore().enablePersistence().then(function() {
+                // Initialize Cloud Firestore through firebase
+                db = firebase.firestore();
+                initialize(db);
+            }).catch(function(err) {
+                console.warn("Cannot enable offline persistance");
+                if (err.code == 'failed-precondition') {
+                    console.log("Multiple tabs open, persistence can only be enabled in one tab at a a time");
+                } else if (err.code == 'unimplemented') {
+                    console.log("The current browser does not support all of the features required to enable persistence");
+                }
+                db = firebase.firestore();
+                initialize(db);
+            });
+        });
 
+      function initialize(db){
         db.collection("employees").get().then((querySnapshot)=>{
             querySnapshot.forEach((doc) => {
                 var data = doc.data();
@@ -178,7 +198,7 @@
           }));
 
         $('#detailModal').on('hidden.bs.modal', function (e) { resetModal();});
-      });
+      }
 
       function createNewEmployee(){
         $('#detailModal').modal({focus: true});
