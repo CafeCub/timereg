@@ -176,20 +176,15 @@ button:focus {
 .loginpage, .loginpage body{
   height: 100%;
 }
-.submenu-item{
-  background: #868e96;
-  text-decoration: none;
-  color: #000000;
-  padding: 15px;
-  font-weight: bold;
+/*--- end employee page---*/
+.nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link.active {
+    color: #000;
+    background-color: #ffc107;
+    border-color: #ffc107;
+    font-weight: bold;
 }
-.submenu-item.active{
-  background: #ffc107;
-  text-decoration: none;
-  cursor: default;
-}
-.submenu-item:hover{
-  background: #ffc107;
-  text-decoration: none;
-  color: #000000;
+.table .thead-dark th {
+    color: #000;
+    background-color: #dddddd;
+    border-color: #cccccc;
 }

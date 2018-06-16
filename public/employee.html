@@ -13,7 +13,14 @@
 </head>
 
 <body>
-  <div id="divHeader"></div>
+
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top" id="mainNav">
+    <div class="container-fluid">
+        <a class="navbar-brand w-100 d-flex align-items-center" href="employee-list.html">
+            <i class="fa fa-arrow-left"></i> <span class="text-white font-weight-bold mx-auto text-center" style="flex: 1;">Chi tiết nhân viên</span>
+        </a>
+    </div>
+  </nav>
 
   <div id="employeeInfo" class="employee-detail-info">
     <div class="employee-info">
@@ -24,67 +31,117 @@
           <i class="fas fa-edit"></i>
         </button>
       </div>
-      <div class="mb-1">
-        <span class="employee-title font-weight-bold" id="sTitle">CEO</span> -
-        <span class="employee-isActived color-grey" id="sIsActived">Đang hoạt động</span>
+      <div class="mb-1 small">
+        <span class="employee-title font-weight-bold" id="sTitle">CEO</span>
+        <span class="employee-isActived color-grey" id="sIsActived"></span>
       </div>
-      <div class="mb-1">
+      <div class="mb-1 small">
         Lương:
-        <span class="employee-rate font-weight-bold" id="sRate">10000</span>/h - Ngày lương cuối:
+        <span class="employee-rate font-weight-bold" id="sRate">10000</span>/h - Ngày lương:
         <span class="employee-insertedAt font-weight-bold" id="sLastPaymentDate">23/08/2016</span>
       </div>
     </div>
   </div>
 
-    <div class="d-flex flex-row submenu" id="submenu">
-      <a href="employee.html" class="w-50 text-center submenu-item menu-timereg active disabled">
-          Chấm công
-      </a>
-      <a href="employee-detail-note.html" class="submenu-item menu-note w-50 text-center">
-          Ghi chú
-      </a>
+  <nav>
+    <div class="nav nav-tabs nav-justified" id="submenu" role="tablist">
+      <a class="nav-item nav-link active" id="nav-timereg-tab" data-toggle="tab" href="#nav-timereg" role="tab" aria-controls="nav-home" aria-selected="true">Chấm công</a>
+      <a class="nav-item nav-link" id="nav-note-tab" data-toggle="tab" href="#nav-note" role="tab" aria-controls="nav-profile" aria-selected="false">Ghi chú</a>
+      <a class="nav-item nav-link" id="nav-bonus-tab" data-toggle="tab" href="#nav-bonus" role="tab" aria-controls="nav-contact" aria-selected="false">Thưởng</a>
     </div>
+  </nav>
 
-  <div class="form-group mb-0">
-    <div class='input-group date' id='datetimepicker1'>
-      <input type='text' class="form-control searchbox" placeholder="Lọc theo ngày/tháng" />
-      <span class="input-group-addon">
-        <span class="fa fa-calendar text-secondary"></span>
-      </span>
+  <div class="tab-content" id="nav-tabsubmenu">
+    <div class="tab-pane fade show active" id="nav-timereg" role="tabpanel" aria-labelledby="nav-timereg-tab">
+
+      <div class="form-group mb-0">
+        <div class='input-group date' id='datetimepicker1'>
+          <input type='text' class="form-control searchbox" placeholder="Lọc theo ngày/tháng" />
+          <span class="input-group-addon">
+            <span class="fa fa-calendar text-secondary"></span>
+          </span>
+        </div>
+      </div>
+
+      <div class="">
+        <table class="table table-bordered table-light table-sm" id="tblTimeReg">
+          <thead class="thead-dark">
+            <tr>
+              <th scope="col">Ngày</th>
+              <th scope="col">Giờ vào</th>
+              <th scope="col">Giờ ra</th>
+              <th scope="col">Tổng</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>16/08/2018</td>
+              <td>07:30</td>
+              <td>15:20</td>
+              <td>08:30</td>
+            </tr>
+            <tr>
+              <td>15/08/2018</td>
+              <td>07:30</td>
+              <td>15:20</td>
+              <td>08:30</td>
+            </tr>
+            <tr>
+              <td>14/08/2018</td>
+              <td>07:30</td>
+              <td>15:20</td>
+              <td>08:30</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
-  </div>
-
-  <div class="">
-    <table class="table table-bordered table-light table-sm" id="tblTimeReg">
-      <thead>
-        <tr>
-          <th scope="col">Ngày</th>
-          <th scope="col">Giờ vào</th>
-          <th scope="col">Giờ ra</th>
-          <th scope="col">Tổng</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <th scope="row">16/08/2018</th>
-          <td>07:30</td>
-          <td>15:20</td>
-          <td>08:30</td>
-        </tr>
-        <tr>
-          <th scope="row">15/08/2018</th>
-          <td>07:30</td>
-          <td>15:20</td>
-          <td>08:30</td>
-        </tr>
-        <tr>
-          <th scope="row">14/08/2018</th>
-          <td>07:30</td>
-          <td>15:20</td>
-          <td>08:30</td>
-        </tr>
-      </tbody>
-    </table>
+    <div class="tab-pane fade" id="nav-note" role="tabpanel" aria-labelledby="nav-note-tab">
+      <table class="table table-bordered table-light table-sm" id="tblNote">
+        <thead class="thead-dark">
+          <tr>
+            <th scope="col">Ngày</th>
+            <th scope="col">Lí do</th>
+            <th scope="col">Số Tiền</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>16/08/2018</th>
+            <td>Bể ly trà đào</td>
+            <td>30.000</td>
+          </tr>
+          <tr>
+            <td>15/08/2018</th>
+            <td>Đi trễ</td>
+            <td>50.000</td>
+          </tr>
+          <tr>
+            <td>14/08/2018</th>
+            <td>Quên tạp dề</td>
+            <td>20.000</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="tab-pane fade" id="nav-bonus" role="tabpanel" aria-labelledby="nav-bonus-tab">
+      <table class="table table-bordered table-light table-sm" id="tblBonus">
+        <thead class="thead-dark">
+          <tr>
+            <th scope="col">Ngày</th>
+            <th scope="col">Lí do</th>
+            <th scope="col">Số Tiền</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>16/08/2018</th>
+            <td>Nhiệt tình</td>
+            <td>100.000</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 
   <div id="addNoteModal" class="modal" tabindex="-1" role="dialog">
@@ -175,9 +232,9 @@
     crossorigin="anonymous"></script>
   <script>
     $(document).ready(() => {
-      $('#divHeader').load('header.html', () => {
-        $("#navbarResponsive li.nav-item a.nav-link[href='/employee-list.html']").addClass("active");
-      });
+      // $('#divHeader').load('header.html', () => {
+      //   $("#navbarResponsive li.nav-item a.nav-link[href='/employee-list.html']").addClass("active");
+      // });
       firebase.firestore().enablePersistence().then(function () {
         // Initialize Cloud Firestore through firebase
         db = firebase.firestore();
@@ -219,7 +276,7 @@
         docs.forEach((doc) => { records.push($.extend({ id: doc.id }, doc.data())) });
         records.sort((a, b) => { return a.startAt < b.startAt; });
         var htmlStr = "";
-        records.forEach((r) => { htmlStr += '<tr trId="' + r.id + '"><th scope="row">' + r.startAt.toDateString() + '</th><td>' + r.startAt.toLocaleTimeString() + '</td><td>' + r.endAt.toLocaleTimeString() + '</td><td>' + getDurationString(r.endAt - r.startAt) + '</td></tr>'; });
+        records.forEach((r) => { htmlStr += '<tr trId="' + r.id + '"><td>' + r.startAt.toDateString() + '</td><td>' + r.startAt.toLocaleTimeString() + '</td><td>' + r.endAt.toLocaleTimeString() + '</td><td>' + getDurationString(r.endAt - r.startAt) + '</td></tr>'; });
         $("#tblTimeReg tbody").empty();
         $(htmlStr).appendTo("#tblTimeReg tbody");
       }).catch(function (error) { console.log("Error getting documents:", error); });
@@ -258,7 +315,7 @@
       $("#sRate").text(e.rate);
       $("#sTitle").text(e.title);
       $("#sLastPaymentDate").text(e.lastPaymentDate);
-      $("#sIsActived").text(e.isActived ? "Đang làm việc" : "Ngưng làm việc");
+      $("#sIsActived").text(e.isActived ? "" : " - Đã nghỉ");
     }
 
     function saveDetail() {
