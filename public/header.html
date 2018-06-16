@@ -1,0 +1,31 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top" id="mainNav">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#page-top">CAFECUB
+            <span class="small timehour ml-2">15:30 - 13/09/2018</span>
+        </a>
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive"
+            aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="/timereg.html">CHẤM CÔNG</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/employee-list.html">NHÂN VIÊN</a>
+                </li>
+                <li class="nav-item d-none">
+                    <a class="nav-link" href="/index.html">Đăng nhập</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link small" href="#">
+                        <i class="fa fa-sign-out-alt"></i> Thoát</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <script>
+        $("#navbarResponsive li.nav-item a.nav-link[href='"+document.location.pathname+"']").addClass("active");
+    </script>
+</nav>
