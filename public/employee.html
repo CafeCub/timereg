@@ -15,10 +15,14 @@
 <body>
 
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top" id="mainNav">
-    <div class="container-fluid">
-        <a class="navbar-brand w-100 d-flex align-items-center" href="employee-list.html">
-            <i class="fa fa-arrow-left"></i> <span class="text-white font-weight-bold mx-auto text-center" style="flex: 1;">Chi tiết nhân viên</span>
-        </a>
+    <div class="container-fluid d-flex justify-content-between align-items-center">
+      <a class="navbar-brand" href="employee-list.html">
+        <i class="fa fa-arrow-left"></i>
+      </a>
+      <span class="text-white font-weight-bold text-center" style="">Chi tiết nhân viên</span>
+      <a class="btn btn-info btn-sm mr-2" href="#luongnhanvien">
+        <i class="fa fa-calculator"></i> <span class="d-none d-sm-inline-block">Tính lương</span>
+      </a>
     </div>
   </nav>
 
@@ -41,21 +45,31 @@
         <span class="employee-insertedAt font-weight-bold" id="sLastPaymentDate">23/08/2016</span>
       </div>
       <div class="mb-1 small">
-        Giờ làm: <span class="employee-rate font-weight-bold" id="totalTime">230.5</span>h
-         - Vi phạm: <span class="employee-insertedAt font-weight-bold" id="totalFee">100.000</span>
-         - Thưởng: <span class="employee-insertedAt font-weight-bold" id="totalBonus">300.000</span><br>
+        Giờ làm:
+        <span class="employee-rate font-weight-bold" id="totalTime">230.5</span>h - Vi phạm:
+        <span class="employee-insertedAt font-weight-bold" id="totalFee">100.000</span>
+        - Thưởng:
+        <span class="employee-insertedAt font-weight-bold" id="totalBonus">300.000</span>
+        <br>
       </div>
       <div class="mb-1 small">
-        Tổng lương: <span class="employee-insertedAt font-weight-bold" id="totalSalary">5.100.000</span>
+        Tổng lương:
+        <span class="employee-insertedAt font-weight-bold" id="totalSalary">5.100.000</span>
       </div>
     </div>
   </div>
 
   <nav>
     <div class="nav nav-tabs nav-justified" id="submenu" role="tablist">
-      <a class="nav-item nav-link active" id="nav-timereg-tab" data-toggle="tab" href="#nav-timereg" role="tab" aria-controls="nav-home" aria-selected="true">Chấm công</a>
-      <a class="nav-item nav-link" id="nav-note-tab" data-toggle="tab" href="#nav-note" role="tab" aria-controls="nav-profile" aria-selected="false">Ghi chú</a>
-      <a class="nav-item nav-link" id="nav-bonus-tab" data-toggle="tab" href="#nav-bonus" role="tab" aria-controls="nav-contact" aria-selected="false">Thưởng</a>
+      <a class="nav-item nav-link active" id="nav-timereg-tab" data-toggle="tab" href="#nav-timereg" role="tab" aria-controls="nav-home"
+        aria-selected="true" load-info="loadTimeReg(employee.id);">
+        <button class="d-none load" onclick="loadTimeReg(employee.id);"></button>Chấm công</a>
+      <a class="nav-item nav-link" id="nav-note-tab" data-toggle="tab" href="#nav-note" role="tab" aria-controls="nav-profile"
+        aria-selected="false" load-info="loadNote(employee.id);">
+        <button class="d-none load" onclick="loadNote(employee.id);"></button>Ghi chú</a>
+      <a class="nav-item nav-link" id="nav-bonus-tab" data-toggle="tab" href="#nav-bonus" role="tab" aria-controls="nav-contact"
+        aria-selected="false" load-info="loadBonus(employee.id);">
+        <button class="d-none load" onclick="loadBonus(employee.id);"></button>Thưởng</a>
     </div>
   </nav>
 
@@ -66,7 +80,7 @@
         <div class='input-group date' id='datetimepicker1'>
           <input type='text' class="form-control searchbox" placeholder="Lọc theo ngày/tháng" />
           <span class="input-group-addon">
-            <span class="fa fa-calendar text-secondary"></span>
+            <span class="fa fa-calendar-alt text-secondary"></span>
           </span>
         </div>
       </div>
@@ -92,7 +106,6 @@
         </table>
       </div>
     </div>
-
     <div class="tab-pane fade" id="nav-note" role="tabpanel" aria-labelledby="nav-note-tab">
       <div class="list-with-add-button">
         <table class="table table-bordered table-light table-sm" id="tblNote">
@@ -106,17 +119,16 @@
           <tbody>
             <tr>
               <td>16/08/2018</th>
-              <td>Bể ly trà đào</td>
-              <td>30.000</td>
+                <td>Bể ly trà đào</td>
+                <td>30.000</td>
             </tr>
           </tbody>
         </table>
-        <button type="button" class="btn btn-primary btn-lg floatbtn add-note">
+        <button type="button" class="btn btn-primary btn-lg floatbtn" onclick="addNote();">
           <i class="fas fa-plus"></i>
         </button>
       </div>
     </div>
-
     <div class="tab-pane fade" id="nav-bonus" role="tabpanel" aria-labelledby="nav-bonus-tab">
       <div class="list-with-add-button">
         <table class="table table-bordered table-light table-sm" id="tblBonus">
@@ -130,50 +142,14 @@
           <tbody>
             <tr>
               <td>16/08/2018</th>
-              <td>Nhiệt tình</td>
-              <td>100.000</td>
+                <td>Nhiệt tình</td>
+                <td>100.000</td>
             </tr>
           </tbody>
         </table>
-        <button type="button" class="btn btn-primary btn-lg floatbtn add-bonus">
+        <button type="button" class="btn btn-primary btn-lg floatbtn" onclick="addBonus();">
           <i class="fas fa-plus"></i>
         </button>
-      </div>
-    </div>
-  </div>
-
-  <div id="addBonusModal" class="modal" tabindex="-1" role="dialog">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title">Thêm Ghi chú</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <form>
-            <div class="form-group mb-0">
-              <input type="text" class="form-control-plaintext text-muted w-100" id="txtId" placeholder="ID" readonly>
-            </div>
-            <div class="form-group mb-2">
-              <label for="txtBonusDate">Ngày</label>
-              <input type="text" class="form-control" id="txtBonusDate" placeholder="Ngày hiện tại">
-            </div>
-            <div class="form-group mb-2">
-              <label for="txtBonusReason">Lí do</label>
-              <input type="text" class="form-control" id="txtBonusReason" placeholder="Lí do">
-            </div>
-            <div class="form-group mb-2">
-              <label for="txtBonusAmount">Số Tiền</label>
-              <input type="number" class="form-control" id="txtBonusAmount" placeholder="Số Tiền">
-            </div>
-          </form>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-primary" onclick="saveNoted();">Lưu lại</button>
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Bỏ qua</button>
-        </div>
       </div>
     </div>
   </div>
@@ -189,25 +165,47 @@
         </div>
         <div class="modal-body">
           <form>
-            <div class="form-group mb-0">
-              <input type="text" class="form-control-plaintext text-muted w-100" id="txtId" placeholder="ID" readonly>
-            </div>
             <div class="form-group mb-2">
-              <label for="txtNoteDate">Ngày</label>
-              <input type="text" class="form-control" id="txtNoteDate" placeholder="Ngày hiện tại">
-            </div>
-            <div class="form-group mb-2">
-              <label for="txtNoteReason">Lí do</label>
+              <label for="">Lí do</label>
               <input type="text" class="form-control" id="txtNoteReason" placeholder="Lí do">
             </div>
             <div class="form-group mb-2">
-              <label for="txtNoteAmount">Số Tiền</label>
-              <input type="number" class="form-control" id="txtNoteAmount" placeholder="Số Tiền">
+              <label for="txtAmount">Số Tiền</label>
+              <input type="number" class="form-control" id="txtNoteAmount" placeholder="Money">
             </div>
           </form>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-primary" onclick="saveNoted();">Lưu lại</button>
+          <button type="button" class="btn btn-primary" onclick="saveNote();">Lưu lại</button>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Bỏ qua</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="addBonusModal" class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Thêm Thưởng</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="form-group mb-2">
+              <label for="txtBonusReason">Lí do</label>
+              <input type="text" class="form-control" id="txtBonusReason" placeholder="Lí do">
+            </div>
+            <div class="form-group mb-2">
+              <label for="txtBonusAmount">Số Tiền</label>
+              <input type="number" class="form-control" id="txtBonusAmount" placeholder="Money">
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" onclick="saveBonus();">Lưu lại</button>
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Bỏ qua</button>
         </div>
       </div>
@@ -239,10 +237,6 @@
             <div class="form-group mb-2">
               <label for="txtRate">Bậc lương</label>
               <input type="number" class="form-control" id="txtRate" placeholder="Rate">
-            </div>
-            <div class="form-group mb-2">
-              <label for="txtPaymentDate">Ngày lương</label>
-              <input type="number" class="form-control" id="txtPaymentDate" placeholder="Payment Date">
             </div>
             <div class="form-check mb-2">
               <label class="form-check-label">
@@ -312,7 +306,11 @@
           console.log("Error getting document:", error);
         });
         loadTimeReg(eId);
-      } else { alert("Invalid session, please go back to where you are!!!") }
+      } else { alert("Invalid session, please go back to where you are!!!"); }
+      $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+        $("div.tab-content tbody").empty();
+        $(e.target).find("button.load").click();
+      })
     }
 
     function loadTimeReg(eId) {
@@ -321,21 +319,53 @@
         docs.forEach((doc) => { records.push($.extend({ id: doc.id }, doc.data())) });
         records.sort((a, b) => { return a.startAt < b.startAt; });
         var htmlStr = "";
-        records.forEach((r) => { htmlStr += '<tr trId="' + r.id + '"><td>' + r.startAt.toLocaleDateString() + '</td><td>' + r.startAt.toLocaleTimeString('vi-VN', {hour: '2-digit', minute:'2-digit'}) + '</td><td>' + r.endAt.toLocaleTimeString('vi-VN', {hour: '2-digit', minute:'2-digit'}) + '</td><td>' + getDurationString(r.endAt - r.startAt) + '</td></tr>'; });
+        records.forEach((r) => { htmlStr += '<tr trId="' + r.id + '"><td>' + toDateString(r.startAt) + '</td><td>' + toTimeString(r.startAt) + '</td><td>' + toTimeString(r.endAt) + '</td><td>' + getDurationString(r.endAt - r.startAt) + '</td></tr>'; });
         $("#tblTimeReg tbody").empty();
         $(htmlStr).appendTo("#tblTimeReg tbody");
       }).catch(function (error) { console.log("Error getting documents:", error); });
     }
 
+    function loadNote(eId) {
+      db.collection("notes").where("employeeId", "==", eId).get().then((docs) => {
+        var records = [];
+        docs.forEach((doc) => { records.push($.extend({ id: doc.id }, doc.data())) });
+        records.sort((a, b) => { return a.insertedAt < b.insertedAt; });
+        var htmlStr = "";
+        records.forEach((r) => { htmlStr += '<tr nId="' + r.id + '"><td>' + toDateString(r.insertedAt) + '</td><td>' + r.reason + '</td><td>' + toMoneyString(r.amount) + '</td></tr>'; });
+        $("#tblNote tbody").empty();
+        $(htmlStr).appendTo("#tblNote tbody");
+      }).catch(function (error) { console.log("Error getting documents:", error); });
+    }
+
+    function loadBonus(eId) {
+      db.collection("bonuses").where("employeeId", "==", eId).get().then((docs) => {
+        var records = [];
+        docs.forEach((doc) => { records.push($.extend({ id: doc.id }, doc.data())) });
+        records.sort((a, b) => { return a.insertedAt < b.insertedAt; });
+        var htmlStr = "";
+        records.forEach((r) => { htmlStr += '<tr nId="' + r.id + '"><td>' + toDateString(r.insertedAt) + '</td><td>' + r.reason + '</td><td>' + toMoneyString(r.amount) + '</td></tr>'; });
+        $("#tblBonus tbody").empty();
+        $(htmlStr).appendTo("#tblBonus tbody");
+      }).catch(function (error) { console.log("Error getting documents:", error); });
+    }
+
+    function toTimeString(date) { return date ? date.toLocaleTimeString('vi-VN', { hour: '2-digit', minute: '2-digit', hour12: false }) : ""; }
+
+    function toDateString(date) { return date ? date.toLocaleDateString('vi-VN') : ""; }
+
+    function toMoneyString(amount) { return amount ? new Intl.NumberFormat('vi-VN').format(amount) : ""; }
+
     function getDurationString(milisecond) {
-      var d = Math.floor(milisecond / 1000);
-      var temp = d % 60;
-      var result =""//; = (temp > 9 ? temp.toString() : "0" + temp);
-      temp = Math.floor(d / 60) % 60;
-      if(temp == 0){result = "00"+ result;} else {result = (temp > 9 ? temp.toString() : "0" + temp) + result;}
-      temp = Math.floor(d / 3600);
-      if(temp == 0){result = "00:"+ result;} else {result = (temp > 9 ? temp.toString() : "0" + temp) + ":" + result;}
-      return result;
+      if (milisecond) {
+        var d = Math.floor(milisecond / 1000);
+        var temp = d % 60;
+        var result = ""//; = (temp > 9 ? temp.toString() : "0" + temp);
+        temp = Math.floor(d / 60) % 60;
+        if (temp == 0) { result = "00" + result; } else { result = (temp > 9 ? temp.toString() : "0" + temp) + result; }
+        temp = Math.floor(d / 3600);
+        if (temp == 0) { result = "00:" + result; } else { result = (temp > 9 ? temp.toString() : "0" + temp) + ":" + result; }
+        return result;
+      } else return "";
     }
 
     function editEmployeeDetail() {
@@ -346,6 +376,18 @@
       $('#chbIsActived').val(employee.isActived);
       $('#detailModal').modal({ focus: true });
     };
+
+    function addBonus() {
+      $("#txtBonusReason").val("");
+      $("#txtBonusAmount").val("");
+      $("#addBonusModal").modal({ focus: true })
+    }
+
+    function addNote() {
+      $("#txtNoteReason").val("");
+      $("#txtNoteAmount").val("");
+      $("#addNoteModal").modal({ focus: true })
+    }
 
     function getUrlParameter(name) {
       name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
@@ -359,7 +401,7 @@
       $("#sName").text(e.name);
       $("#sRate").text(e.rate);
       $("#sTitle").text(e.title);
-      $("#sLastPaymentDate").text(e.lastPaymentDate.slice(0,10));
+      $("#sLastPaymentDate").text(toDateString(e.lastPaymentDate));
       $("#sIsActived").text(e.isActived ? "" : " - Đã nghỉ");
     }
 
@@ -373,41 +415,50 @@
         updatedAt: firebase.firestore.FieldValue.serverTimestamp()
       };
       db.collection("employees").doc(id).update(data).then(function (docRef) {
-        console.log("Document update with ID: ", id);
+        console.log("Document update with ID: ", docRef.id);
         employee = $.extend(employee, data);
         updateEmployeeData(employee);
-        $('#detailModal').modal('hide');
+        $('#addBonusModal').modal('hide');
       }).catch(function (error) {
         console.error("Error adding document: ", error);
       });
     }
 
-    $(document).on('click', '.add-note', ((e) => {
-      e.preventDefault();
-      var ele = $(e.currentTarget);
-      var em = employees.find((e) => { return e.id == ele.attr('employee-id'); });
-      if (em) {
-        $('#txtNoteId').val(em.id);
-        $('#txtNoteName').val(em.name);
-        $('#txtNoteReason').val("");
-        $('#txtNoteAmount').val("");
-      } else { alert('Something is wrong, please refresh the page.') }
-      $('#addBonusModal').modal({ focus: true });
-    }));
+    function saveNote() {
+      var id = employee.id;
+      data = {
+        employeeId: id,
+        reason: $('#txtNoteReason').val(),
+        amount: Number($('#txtNoteAmount').val()),
+        insertedAt: firebase.firestore.FieldValue.serverTimestamp()
+      };
+      db.collection("notes").add(data).then(function (docRef) {
+        console.log("Document update with ID: ", docRef.id);
+        employee = $.extend(employee, data);
+        loadNote(id);
+        $('#addNoteModal').modal('hide');
+      }).catch(function (error) {
+        console.error("Error adding document: ", error);
+      });
+    }
 
-    $(document).on('click', '.add-bonus', ((e) => {
-      e.preventDefault();
-      var ele = $(e.currentTarget);
-      var em = employees.find((e) => { return e.id == ele.attr('employee-id'); });
-      if (em) {
-        $('#txtBonusId').val(em.id);
-        $('#txtBonusName').val(em.name);
-        $('#txtBonusReason').val("");
-        $('#txtBonusAmount').val("");
-      } else { alert('Something is wrong, please refresh the page.') }
-      $('#addBonusModal').modal({ focus: true });
-    }));
-
+    function saveBonus() {
+      var id = employee.id;
+      data = {
+        employeeId: id,
+        reason: $('#txtBonusReason').val(),
+        amount: Number($('#txtBonusAmount').val()),
+        insertedAt: firebase.firestore.FieldValue.serverTimestamp()
+      };
+      db.collection("bonuses").add(data).then(function (docRef) {
+        console.log("Document update with ID: ", docRef.id);
+        employee = $.extend(employee, data);
+        loadBonus(id);
+        $('#addBonusModal').modal('hide');
+      }).catch(function (error) {
+        console.error("Error adding document: ", error);
+      });
+    }
   </script>
 </body>
 
