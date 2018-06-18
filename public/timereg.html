@@ -85,9 +85,6 @@
         var isStarted = ele.hasClass('working') ? false : true;
         var regTimeDoc = db.collection("regTime").doc();
         if (trId && !isStarted) {
-          batch.update(db.collection("regTime").doc(trId), {
-            endAt: firebase.firestore.FieldValue.serverTimestamp()
-          });
           batch.update(db.collection("employees").doc(eId), {
             lastReg: {
               regTimeId: trId,
@@ -95,6 +92,10 @@
             },
             updatedAt: firebase.firestore.FieldValue.serverTimestamp()
           })
+          batch.update(db.collection("regTime").doc(trId), {
+            endAt: firebase.firestore.FieldValue.serverTimestamp()
+          });
+          ele.removeClass('working');
         } else {
           var regTimeDoc = db.collection("regTime").doc();
           batch.set(regTimeDoc, {
@@ -112,7 +113,7 @@
         }
         batch.commit().then(function (docRef) {
           console.log("Document written with ID: ", docRef);
-          ele.toggleClass('working');
+          if (isStarted) { ele.addClass('working'); }
         }).catch(function (error) {
           console.error("Error adding document: ", error);
         });

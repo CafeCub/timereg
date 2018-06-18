@@ -9,6 +9,7 @@
     crossorigin="anonymous">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp"
     crossorigin="anonymous">
+  <link rel="stylesheet" href="/css/bootstrap-datepicker.min.css">
   <link rel="stylesheet" href="/css/custom.css">
 </head>
 
@@ -43,11 +44,12 @@
         <div class="modal-body">
           <form>
             <div class="form-group mb-0">
-              <input type="text" class="form-control-plaintext text-muted w-100" id="txtId" placeholder="ID" readonly>
+              <input type="text" id="txtBonusId" class="d-none" />
+              <input type="text" class="form-control-plaintext text-muted w-100" id="txtBonusName" placeholder="ID" readonly>
             </div>
             <div class="form-group mb-2">
               <label for="txtBonusDate">Ngày</label>
-              <input type="text" class="form-control" id="txtBonusDate" placeholder="Ngày hiện tại">
+              <input type="text" class="form-control" id="txtBonusDate" placeholder="Ngày hiện tại" data-provide="datepicker">
             </div>
             <div class="form-group mb-2">
               <label for="txtBonusReason">Lí do</label>
@@ -60,7 +62,7 @@
           </form>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-primary" onclick="saveNoted();">Lưu lại</button>
+          <button type="button" class="btn btn-primary" onclick="saveBonus();">Lưu lại</button>
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Bỏ qua</button>
         </div>
       </div>
@@ -79,11 +81,12 @@
         <div class="modal-body">
           <form>
             <div class="form-group mb-0">
-              <input type="text" class="form-control-plaintext text-muted w-100" id="txtId" placeholder="ID" readonly>
+              <input type="text" id="txtNoteId" class="d-none" />
+              <input type="text" class="form-control-plaintext text-muted w-100" id="txtNoteName" placeholder="ID" readonly>
             </div>
             <div class="form-group mb-2">
               <label for="txtNoteDate">Ngày</label>
-              <input type="text" class="form-control" id="txtNoteDate" placeholder="Ngày hiện tại">
+              <input type="text" class="form-control" id="txtNoteDate" placeholder="Ngày hiện tại" data-provide="datepicker">
             </div>
             <div class="form-group mb-2">
               <label for="txtNoteReason">Lí do</label>
@@ -96,7 +99,7 @@
           </form>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-primary" onclick="saveNoted();">Lưu lại</button>
+          <button type="button" class="btn btn-primary" onclick="saveNote();">Lưu lại</button>
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Bỏ qua</button>
         </div>
       </div>
@@ -164,6 +167,7 @@
     crossorigin="anonymous"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ"
     crossorigin="anonymous"></script>
+  <script defer src="/js/bootstrap-datepicker.min.js"></script>
   <script>
     employees = [];
     $(document).ready(() => {
@@ -215,10 +219,11 @@
         if (em) {
           $('#txtNoteId').val(em.id);
           $('#txtNoteName').val(em.name);
+          $('#txtNoteDate').val("");
           $('#txtNoteReason').val("");
           $('#txtNoteAmount').val("");
         } else { alert('Something is wrong, please refresh the page.') }
-        $('#addBonusModal').modal({ focus: true });
+        $('#addNoteModal').modal({ focus: true });
       }));
 
       $(document).on('click', '.add-bonus', ((e) => {
@@ -228,6 +233,7 @@
         if (em) {
           $('#txtBonusId').val(em.id);
           $('#txtBonusName').val(em.name);
+          $('#txtBonusDate').val("");
           $('#txtBonusReason').val("");
           $('#txtBonusAmount').val("");
         } else { alert('Something is wrong, please refresh the page.') }
@@ -258,15 +264,31 @@
       $(htmlStr).appendTo('#employeeList');
     }
 
-    function saveNoted() {
+    function saveNote() {
       db.collection("notes").add({
         employeeId: $('#txtNoteId').val(),
-        reason: $('#txtReason').val(),
-        amount: Number($('#txtAmount').val()),
+        date: $('#txtNoteDate').datepicker('getDate'),
+        reason: $('#txtNoteReason').val(),
+        amount: Number($('#txtNoteAmount').val()),
         insertedAt: firebase.firestore.FieldValue.serverTimestamp()
       }).then(function (docRef) {
         console.log("Document written with ID: ", docRef.id);
         $('#addNoteModal').modal("hide");
+      }).catch(function (error) {
+        console.error("Error adding document: ", error);
+      });
+    }
+
+    function saveBonus() {
+      db.collection("bonuses").add({
+        employeeId: $('#txtBonusId').val(),
+        date: $('#txtBonusDate').datepicker('getDate'),
+        reason: $('#txtBonusReason').val(),
+        amount: Number($('#txtBonusAmount').val()),
+        insertedAt: firebase.firestore.FieldValue.serverTimestamp()
+      }).then(function (docRef) {
+        console.log("Document written with ID: ", docRef.id);
+        $('#addBonusModal').modal("hide");
       }).catch(function (error) {
         console.error("Error adding document: ", error);
       });

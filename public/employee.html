@@ -9,6 +9,7 @@
     crossorigin="anonymous">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp"
     crossorigin="anonymous">
+  <link rel="stylesheet" href="/css/bootstrap-datepicker.min.css">
   <link rel="stylesheet" href="/css/custom.css">
 </head>
 
@@ -21,7 +22,8 @@
       </a>
       <span class="text-white font-weight-bold text-center" style="">Chi tiết nhân viên</span>
       <a class="btn btn-info btn-sm mr-2" href="#luongnhanvien">
-        <i class="fa fa-calculator"></i> <span class="d-none d-sm-inline-block">Tính lương</span>
+        <i class="fa fa-calculator"></i>
+        <span class="d-none d-sm-inline-block">Tính lương</span>
       </a>
     </div>
   </nav>
@@ -62,14 +64,11 @@
   <nav>
     <div class="nav nav-tabs nav-justified" id="submenu" role="tablist">
       <a class="nav-item nav-link active" id="nav-timereg-tab" data-toggle="tab" href="#nav-timereg" role="tab" aria-controls="nav-home"
-        aria-selected="true" load-info="loadTimeReg(employee.id);">
-        <button class="d-none load" onclick="loadTimeReg(employee.id);"></button>Chấm công</a>
+        aria-selected="true" load-info="loadTimeReg(employee.id);">Chấm công</a>
       <a class="nav-item nav-link" id="nav-note-tab" data-toggle="tab" href="#nav-note" role="tab" aria-controls="nav-profile"
-        aria-selected="false" load-info="loadNote(employee.id);">
-        <button class="d-none load" onclick="loadNote(employee.id);"></button>Ghi chú</a>
+        aria-selected="false" load-info="loadNote(employee.id);">Ghi chú</a>
       <a class="nav-item nav-link" id="nav-bonus-tab" data-toggle="tab" href="#nav-bonus" role="tab" aria-controls="nav-contact"
-        aria-selected="false" load-info="loadBonus(employee.id);">
-        <button class="d-none load" onclick="loadBonus(employee.id);"></button>Thưởng</a>
+        aria-selected="false" load-info="loadBonus(employee.id);">Thưởng</a>
     </div>
   </nav>
 
@@ -269,6 +268,7 @@
     crossorigin="anonymous"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ"
     crossorigin="anonymous"></script>
+  <script defer src="/js/bootstrap-datepicker.min.js"></script>
   <script>
     $(document).ready(() => {
       // $('#divHeader').load('header.html', () => {
@@ -309,7 +309,7 @@
       } else { alert("Invalid session, please go back to where you are!!!"); }
       $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
         $("div.tab-content tbody").empty();
-        $(e.target).find("button.load").click();
+        eval($(e.target).attr("load-info"));
       })
     }
 
