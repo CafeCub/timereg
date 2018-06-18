@@ -21,12 +21,49 @@
   </form>
   <div class="mt-4" id="contentSection">
     <div class="container-fluid">
-      <div id="employeeList" class="list-with-add-button">
+      <div id="employeeList" class="list-with-add-button row">
 
       </div>
       <button type="button" class="btn btn-primary btn-lg floatbtn" onclick="createNewEmployee();">
         <i class="fas fa-plus"></i>
       </button>
+    </div>
+  </div>
+
+
+  <div id="addBonusModal" class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Thêm Ghi chú</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="form-group mb-0">
+              <input type="text" class="form-control-plaintext text-muted w-100" id="txtId" placeholder="ID" readonly>
+            </div>
+            <div class="form-group mb-2">
+              <label for="txtBonusDate">Ngày</label>
+              <input type="text" class="form-control" id="txtBonusDate" placeholder="Ngày hiện tại">
+            </div>
+            <div class="form-group mb-2">
+              <label for="txtBonusReason">Lí do</label>
+              <input type="text" class="form-control" id="txtBonusReason" placeholder="Lí do">
+            </div>
+            <div class="form-group mb-2">
+              <label for="txtBonusAmount">Số Tiền</label>
+              <input type="number" class="form-control" id="txtBonusAmount" placeholder="Số Tiền">
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" onclick="saveNoted();">Lưu lại</button>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Bỏ qua</button>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -42,19 +79,19 @@
         <div class="modal-body">
           <form>
             <div class="form-group mb-0">
-              <input type="text" class="form-control-plaintext text-muted w-100" id="txtNoteId" placeholder="ID" readonly>
+              <input type="text" class="form-control-plaintext text-muted w-100" id="txtId" placeholder="ID" readonly>
             </div>
             <div class="form-group mb-2">
-              <label for="txtName">Tên</label>
-              <input type="text" class="form-control" id="txtNoteName" placeholder="Name" readonly>
+              <label for="txtNoteDate">Ngày</label>
+              <input type="text" class="form-control" id="txtNoteDate" placeholder="Ngày hiện tại">
             </div>
             <div class="form-group mb-2">
-              <label for="txtReason">Lí do</label>
-              <input type="text" class="form-control" id="txtReason" placeholder="Lí do">
+              <label for="txtNoteReason">Lí do</label>
+              <input type="text" class="form-control" id="txtNoteReason" placeholder="Lí do">
             </div>
             <div class="form-group mb-2">
-              <label for="txtAmount">Số Tiền</label>
-              <input type="number" class="form-control" id="txtAmount" placeholder="Money">
+              <label for="txtNoteAmount">Số Tiền</label>
+              <input type="number" class="form-control" id="txtNoteAmount" placeholder="Số Tiền">
             </div>
           </form>
         </div>
@@ -91,6 +128,10 @@
             <div class="form-group mb-2">
               <label for="txtRate">Bậc lương</label>
               <input type="number" class="form-control" id="txtRate" placeholder="Rate">
+            </div>
+            <div class="form-group mb-2">
+              <label for="txtPaymentDate">Ngày lương</label>
+              <input type="number" class="form-control" id="txtPaymentDate" placeholder="Payment Date">
             </div>
             <div class="form-check mb-2">
               <label class="form-check-label">
@@ -174,10 +215,23 @@
         if (em) {
           $('#txtNoteId').val(em.id);
           $('#txtNoteName').val(em.name);
-          $('#txtReason').val("");
-          $('#txtAmount').val("");
+          $('#txtNoteReason').val("");
+          $('#txtNoteAmount').val("");
         } else { alert('Something is wrong, please refresh the page.') }
-        $('#addNoteModal').modal({ focus: true });
+        $('#addBonusModal').modal({ focus: true });
+      }));
+
+      $(document).on('click', '.add-bonus', ((e) => {
+        e.preventDefault();
+        var ele = $(e.currentTarget);
+        var em = employees.find((e) => { return e.id == ele.attr('employee-id'); });
+        if (em) {
+          $('#txtBonusId').val(em.id);
+          $('#txtBonusName').val(em.name);
+          $('#txtBonusReason').val("");
+          $('#txtBonusAmount').val("");
+        } else { alert('Something is wrong, please refresh the page.') }
+        $('#addBonusModal').modal({ focus: true });
       }));
 
       $('#detailModal').on('hidden.bs.modal', function (e) { resetModal(); });
@@ -199,7 +253,7 @@
       $('#employeeList').empty();
       var htmlStr = "";
       employees.forEach((e) => {
-        htmlStr += '<a href="employee.html?eId=' + e.id + '" class="employee-item"><div class="employee-info"><div class="employee-id">' + e.id + '</div><div class="employee-name">' + e.name + '</div><div class="employee-title">Công việc: ' + e.title + '</div><div class="employee-rate">' + e.rate + '</div><div class="employee-isActived">' + e.isActived + '</div><div class="employee-insertedAt">' + e.insertedAt + '</div></div><button class="btn btn-secondary btn-circle edit-employee" employee-id="' + e.id + '"><i class="fas fa-user-edit"></i></button><button class="btn btn-warning btn-circle ml-2 add-note" employee-id="' + e.id + '"><i class="far fa-sticky-note"></i></button></a>';
+        htmlStr += '<div class="col-sm-6 col-md-4 col-lg-3"><a href="employee.html?eId=' + e.id + '" class="employee-item"><div class="employee-info"><div class="employee-id">' + e.id + '</div><div class="employee-name">' + e.name + '</div><div class="employee-title">' + e.title + '</div><div class="employee-rate">' + e.rate + '</div><div class="employee-isActived">' + e.isActived + '</div><div class="employee-insertedAt">' + e.insertedAt + '</div></div><button class="btn btn-sm btn-secondary btn-circle edit-employee" employee-id="' + e.id + '"><i class="fas fa-user"></i></button><button class="btn btn-sm btn-warning btn-circle ml-2 add-note" employee-id="' + e.id + '"><i class="far fa-sticky-note"></i></button><button class="btn btn-sm btn-info btn-circle ml-2 add-bonus" employee-id="' + e.id + '"><i class="fab fa-bitcoin"></i></button></a></div>';
       });
       $(htmlStr).appendTo('#employeeList');
     }

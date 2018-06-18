@@ -92,41 +92,89 @@
         </table>
       </div>
     </div>
+
     <div class="tab-pane fade" id="nav-note" role="tabpanel" aria-labelledby="nav-note-tab">
-      <table class="table table-bordered table-light table-sm" id="tblNote">
-        <thead class="thead-dark">
-          <tr>
-            <th scope="col">Ngày</th>
-            <th scope="col">Lí do</th>
-            <th scope="col">Số Tiền</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>16/08/2018</th>
-            <td>Bể ly trà đào</td>
-            <td>30.000</td>
-          </tr>
-        </tbody>
-      </table>
+      <div class="list-with-add-button">
+        <table class="table table-bordered table-light table-sm" id="tblNote">
+          <thead class="thead-dark">
+            <tr>
+              <th scope="col">Ngày</th>
+              <th scope="col">Lí do</th>
+              <th scope="col">Số Tiền</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>16/08/2018</th>
+              <td>Bể ly trà đào</td>
+              <td>30.000</td>
+            </tr>
+          </tbody>
+        </table>
+        <button type="button" class="btn btn-primary btn-lg floatbtn add-note">
+          <i class="fas fa-plus"></i>
+        </button>
+      </div>
     </div>
+
     <div class="tab-pane fade" id="nav-bonus" role="tabpanel" aria-labelledby="nav-bonus-tab">
-      <table class="table table-bordered table-light table-sm" id="tblBonus">
-        <thead class="thead-dark">
-          <tr>
-            <th scope="col">Ngày</th>
-            <th scope="col">Lí do</th>
-            <th scope="col">Số Tiền</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>16/08/2018</th>
-            <td>Nhiệt tình</td>
-            <td>100.000</td>
-          </tr>
-        </tbody>
-      </table>
+      <div class="list-with-add-button">
+        <table class="table table-bordered table-light table-sm" id="tblBonus">
+          <thead class="thead-dark">
+            <tr>
+              <th scope="col">Ngày</th>
+              <th scope="col">Lí do</th>
+              <th scope="col">Số Tiền</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>16/08/2018</th>
+              <td>Nhiệt tình</td>
+              <td>100.000</td>
+            </tr>
+          </tbody>
+        </table>
+        <button type="button" class="btn btn-primary btn-lg floatbtn add-bonus">
+          <i class="fas fa-plus"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div id="addBonusModal" class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Thêm Ghi chú</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="form-group mb-0">
+              <input type="text" class="form-control-plaintext text-muted w-100" id="txtId" placeholder="ID" readonly>
+            </div>
+            <div class="form-group mb-2">
+              <label for="txtBonusDate">Ngày</label>
+              <input type="text" class="form-control" id="txtBonusDate" placeholder="Ngày hiện tại">
+            </div>
+            <div class="form-group mb-2">
+              <label for="txtBonusReason">Lí do</label>
+              <input type="text" class="form-control" id="txtBonusReason" placeholder="Lí do">
+            </div>
+            <div class="form-group mb-2">
+              <label for="txtBonusAmount">Số Tiền</label>
+              <input type="number" class="form-control" id="txtBonusAmount" placeholder="Số Tiền">
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" onclick="saveNoted();">Lưu lại</button>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Bỏ qua</button>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -141,18 +189,25 @@
         </div>
         <div class="modal-body">
           <form>
-            <div class="form-group mb-2">
-              <label for="">Lí do</label>
-              <input type="text" class="form-control" id="txtReason" placeholder="Lí do">
+            <div class="form-group mb-0">
+              <input type="text" class="form-control-plaintext text-muted w-100" id="txtId" placeholder="ID" readonly>
             </div>
             <div class="form-group mb-2">
-              <label for="txtAmount">Số Tiền</label>
-              <input type="number" class="form-control" id="txtAmount" placeholder="Money">
+              <label for="txtNoteDate">Ngày</label>
+              <input type="text" class="form-control" id="txtNoteDate" placeholder="Ngày hiện tại">
+            </div>
+            <div class="form-group mb-2">
+              <label for="txtNoteReason">Lí do</label>
+              <input type="text" class="form-control" id="txtNoteReason" placeholder="Lí do">
+            </div>
+            <div class="form-group mb-2">
+              <label for="txtNoteAmount">Số Tiền</label>
+              <input type="number" class="form-control" id="txtNoteAmount" placeholder="Số Tiền">
             </div>
           </form>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-primary" onclick="saveDetail();">Lưu lại</button>
+          <button type="button" class="btn btn-primary" onclick="saveNoted();">Lưu lại</button>
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Bỏ qua</button>
         </div>
       </div>
@@ -184,6 +239,10 @@
             <div class="form-group mb-2">
               <label for="txtRate">Bậc lương</label>
               <input type="number" class="form-control" id="txtRate" placeholder="Rate">
+            </div>
+            <div class="form-group mb-2">
+              <label for="txtPaymentDate">Ngày lương</label>
+              <input type="number" class="form-control" id="txtPaymentDate" placeholder="Payment Date">
             </div>
             <div class="form-check mb-2">
               <label class="form-check-label">
@@ -322,6 +381,33 @@
         console.error("Error adding document: ", error);
       });
     }
+
+    $(document).on('click', '.add-note', ((e) => {
+      e.preventDefault();
+      var ele = $(e.currentTarget);
+      var em = employees.find((e) => { return e.id == ele.attr('employee-id'); });
+      if (em) {
+        $('#txtNoteId').val(em.id);
+        $('#txtNoteName').val(em.name);
+        $('#txtNoteReason').val("");
+        $('#txtNoteAmount').val("");
+      } else { alert('Something is wrong, please refresh the page.') }
+      $('#addBonusModal').modal({ focus: true });
+    }));
+
+    $(document).on('click', '.add-bonus', ((e) => {
+      e.preventDefault();
+      var ele = $(e.currentTarget);
+      var em = employees.find((e) => { return e.id == ele.attr('employee-id'); });
+      if (em) {
+        $('#txtBonusId').val(em.id);
+        $('#txtBonusName').val(em.name);
+        $('#txtBonusReason').val("");
+        $('#txtBonusAmount').val("");
+      } else { alert('Something is wrong, please refresh the page.') }
+      $('#addBonusModal').modal({ focus: true });
+    }));
+
   </script>
 </body>
 
