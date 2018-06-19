@@ -169,6 +169,9 @@ button:focus {
   border-radius: 100px;
   align-self: center;
 }
+.btn-round-right{
+  border-radius: 0 4px 4px 0;
+}
 .timehour {
     vertical-align: text-bottom;
 }

@@ -21,10 +21,10 @@
         <i class="fa fa-arrow-left"></i>
       </a>
       <span class="text-white font-weight-bold text-center" style="">Chi tiết nhân viên</span>
-      <a class="btn btn-info btn-sm mr-2" href="#luongnhanvien">
-        <i class="fa fa-calculator"></i>
-        <span class="d-none d-sm-inline-block">Tính lương</span>
-      </a>
+      <button class="btn btn-info btn-sm mr-2" data-toggle="modal" data-target="#confirmPaymentModal">
+        <i class="fa fa-hand-holding-usd"></i>
+        <span class="d-none d-sm-inline-block">Trả lương</span>
+      </button>
     </div>
   </nav>
 
@@ -36,6 +36,9 @@
         <button class="btn btn-link text-secondary btn-sm float-right edit-employee" onclick="editEmployeeDetail();">
           <i class="fas fa-edit"></i>
         </button>
+        <button type="button" class="btn btn-link btn-sm text-secondary float-right mr-1"  data-toggle="modal" data-target="#historyPaymentModal">
+          <i class="fas fa-history"></i>
+        </button>
       </div>
       <div class="mb-1 small">
         <span class="employee-title font-weight-bold" id="sTitle">CEO</span>
@@ -46,6 +49,16 @@
         <span class="employee-rate font-weight-bold" id="sRate">10000</span>/h - Ngày lương:
         <span class="employee-insertedAt font-weight-bold" id="sLastPaymentDate">23/08/2016</span>
       </div>
+      <hr>
+      <div class="input-daterange input-group mb-2" id="PaymentDatepicker">
+        <input type="text" class="input-sm form-control form-control-sm" name="start" />
+        <span class="input-group-addon">to</span>
+        <input type="text" class="input-sm form-control form-control-sm" name="end" />
+        <button type="button" class="btn btn-info btn-sm btn-round-right">
+          <i class="fa fa-calculator"></i> <span class="">Tính lương</span>
+        </button>
+      </div>
+
       <div class="mb-1 small">
         Giờ làm:
         <span class="employee-rate font-weight-bold" id="totalTime">230.5</span>h - Vi phạm:
@@ -54,13 +67,12 @@
         <span class="employee-insertedAt font-weight-bold" id="totalBonus">300.000</span>
         <br>
       </div>
-      <div class="mb-1 small">
-        Tổng lương:
-        <span class="employee-insertedAt font-weight-bold" id="totalSalary">5.100.000</span>
+      <div class="mb-1">
+        Tổng lương: <span class="employee-insertedAt font-weight-bold" id="totalSalary">5.100.000</span>
       </div>
+
     </div>
   </div>
-
   <nav>
     <div class="nav nav-tabs nav-justified" id="submenu" role="tablist">
       <a class="nav-item nav-link active" id="nav-timereg-tab" data-toggle="tab" href="#nav-timereg" role="tab" aria-controls="nav-home"
@@ -74,17 +86,7 @@
 
   <div class="tab-content" id="nav-tabsubmenu">
     <div class="tab-pane fade show active" id="nav-timereg" role="tabpanel" aria-labelledby="nav-timereg-tab">
-
-      <div class="form-group mb-0">
-        <div class='input-group date' id='datetimepicker1'>
-          <input type='text' class="form-control searchbox" placeholder="Lọc theo ngày/tháng" />
-          <span class="input-group-addon">
-            <span class="fa fa-calendar-alt text-secondary"></span>
-          </span>
-        </div>
-      </div>
-
-      <div class="">
+      <div class="list-with-add-button">
         <table class="table table-bordered table-light table-sm" id="tblTimeReg">
           <thead class="thead-dark">
             <tr>
@@ -103,6 +105,9 @@
             </tr>
           </tbody>
         </table>
+        <button type="button" class="btn btn-primary btn-lg floatbtn" onclick="addTimeReg();">
+          <i class="fas fa-plus"></i>
+        </button>
       </div>
     </div>
     <div class="tab-pane fade" id="nav-note" role="tabpanel" aria-labelledby="nav-note-tab">
@@ -149,6 +154,87 @@
         <button type="button" class="btn btn-primary btn-lg floatbtn" onclick="addBonus();">
           <i class="fas fa-plus"></i>
         </button>
+      </div>
+    </div>
+  </div>
+
+
+
+<div id="historyPaymentModal" class="modal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Lịch sử trả lương</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <table class="small table table-bordered table-light table-sm table-responsive-md">
+          <thead class="thead-dark">
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Từ Ngày - Đến ngày</th>
+              <th scope="col">Giờ làm</th>
+              <th scope="col">Vi phạm</th>
+              <th scope="col">Thưởng</th>
+              <th scope="col">Tổng lương</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>1</td>
+              <td>16/05/2018<br>31/05/2018</td>
+              <td>350h</td>
+              <td>500.000</td>
+              <td>1.000.000</td>
+              <td>3.500.000</td>
+            </tr>
+            <tr>
+              <td>2</td>
+              <td>16/05/2018<br>31/05/2018</td>
+              <td>350h</td>
+              <td>500.000</td>
+              <td>1.000.000</td>
+              <td>3.500.000</td>
+            </tr>
+            <tr>
+              <td>3</td>
+              <td>16/05/2018<br>31/05/2018</td>
+              <td>350h</td>
+              <td>500.000</td>
+              <td>1.000.000</td>
+              <td>3.500.000</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+  <div id="confirmPaymentModal" class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Xác nhận trả lương</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p>Bạn đồng ý trả lương cho <br><span class="font-weight-bold">Nhân viên xxx</span><br>
+            Số tiền là <span class="font-weight-bold">5.000.000 đ ?</span><br>
+            Vào ngày <span class="font-weight-bold">16/06/2018</span></p>
+          <p><i class="fas fa-exclamation-circle text-danger"></i> Ngày <span class="font-weight-bold">16/06/2018</span> sẽ là ngày trả lương mới cho nhân viên xxx này?</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" onclick="confirmPayment();">Đồng ý</button>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Bỏ qua</button>
+        </div>
       </div>
     </div>
   </div>
@@ -289,6 +375,7 @@
   <script defer src="/js/bootstrap-datepicker.min.js"></script>
   <script>
     $(document).ready(() => {
+      $('#PaymentDatepicker').datepicker({});
       // $('#divHeader').load('header.html', () => {
       //   $("#navbarResponsive li.nav-item a.nav-link[href='/employee-list.html']").addClass("active");
       // });
