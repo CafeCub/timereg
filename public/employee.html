@@ -36,7 +36,7 @@
         <button class="btn btn-link text-secondary btn-sm float-right edit-employee" onclick="editEmployeeDetail();">
           <i class="fas fa-edit"></i>
         </button>
-        <button type="button" class="btn btn-link btn-sm text-secondary float-right mr-1"  data-toggle="modal" data-target="#historyPaymentModal">
+        <button type="button" class="btn btn-link btn-sm text-secondary float-right mr-1" onclick="showHistoryPayment();">
           <i class="fas fa-history"></i>
         </button>
       </div>
@@ -55,7 +55,8 @@
         <span class="input-group-addon">to</span>
         <input type="text" class="input-sm form-control form-control-sm" name="end" />
         <button type="button" class="btn btn-info btn-sm btn-round-right">
-          <i class="fa fa-calculator"></i> <span class="">Tính lương</span>
+          <i class="fa fa-calculator"></i>
+          <span class="">Tính lương</span>
         </button>
       </div>
 
@@ -68,7 +69,8 @@
         <br>
       </div>
       <div class="mb-1">
-        Tổng lương: <span class="employee-insertedAt font-weight-bold" id="totalSalary">5.100.000</span>
+        Tổng lương:
+        <span class="employee-insertedAt font-weight-bold" id="totalSalary">5.100.000</span>
       </div>
 
     </div>
@@ -158,63 +160,64 @@
     </div>
   </div>
 
-
-
-<div id="historyPaymentModal" class="modal" tabindex="-1" role="dialog">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">Lịch sử trả lương</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <table class="small table table-bordered table-light table-sm table-responsive-md">
-          <thead class="thead-dark">
-            <tr>
-              <th scope="col">#</th>
-              <th scope="col">Từ Ngày - Đến ngày</th>
-              <th scope="col">Giờ làm</th>
-              <th scope="col">Vi phạm</th>
-              <th scope="col">Thưởng</th>
-              <th scope="col">Tổng lương</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>1</td>
-              <td>16/05/2018<br>31/05/2018</td>
-              <td>350h</td>
-              <td>500.000</td>
-              <td>1.000.000</td>
-              <td>3.500.000</td>
-            </tr>
-            <tr>
-              <td>2</td>
-              <td>16/05/2018<br>31/05/2018</td>
-              <td>350h</td>
-              <td>500.000</td>
-              <td>1.000.000</td>
-              <td>3.500.000</td>
-            </tr>
-            <tr>
-              <td>3</td>
-              <td>16/05/2018<br>31/05/2018</td>
-              <td>350h</td>
-              <td>500.000</td>
-              <td>1.000.000</td>
-              <td>3.500.000</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+  <div id="historyPaymentModal" class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Lịch sử trả lương</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <table class="small table table-bordered table-light table-sm table-responsive-md">
+            <thead class="thead-dark">
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Từ Ngày - Đến ngày</th>
+                <th scope="col">Giờ làm</th>
+                <th scope="col">Vi phạm</th>
+                <th scope="col">Thưởng</th>
+                <th scope="col">Tổng lương</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>1</td>
+                <td>16/05/2018
+                  <br>31/05/2018</td>
+                <td>350h</td>
+                <td>500.000</td>
+                <td>1.000.000</td>
+                <td>3.500.000</td>
+              </tr>
+              <tr>
+                <td>2</td>
+                <td>16/05/2018
+                  <br>31/05/2018</td>
+                <td>350h</td>
+                <td>500.000</td>
+                <td>1.000.000</td>
+                <td>3.500.000</td>
+              </tr>
+              <tr>
+                <td>3</td>
+                <td>16/05/2018
+                  <br>31/05/2018</td>
+                <td>350h</td>
+                <td>500.000</td>
+                <td>1.000.000</td>
+                <td>3.500.000</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+        </div>
       </div>
     </div>
   </div>
-</div>
 
   <div id="confirmPaymentModal" class="modal" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
@@ -226,10 +229,17 @@
           </button>
         </div>
         <div class="modal-body">
-          <p>Bạn đồng ý trả lương cho <br><span class="font-weight-bold">Nhân viên xxx</span><br>
-            Số tiền là <span class="font-weight-bold">5.000.000 đ ?</span><br>
-            Vào ngày <span class="font-weight-bold">16/06/2018</span></p>
-          <p><i class="fas fa-exclamation-circle text-danger"></i> Ngày <span class="font-weight-bold">16/06/2018</span> sẽ là ngày trả lương mới cho nhân viên xxx này?</p>
+          <p>Bạn đồng ý trả lương cho
+            <br>
+            <span class="font-weight-bold">Nhân viên xxx</span>
+            <br> Số tiền là
+            <span class="font-weight-bold">5.000.000 đ ?</span>
+            <br> Vào ngày
+            <span class="font-weight-bold">16/06/2018</span>
+          </p>
+          <p>
+            <i class="fas fa-exclamation-circle text-danger"></i> Ngày
+            <span class="font-weight-bold">16/06/2018</span> sẽ là ngày trả lương mới cho nhân viên xxx này?</p>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-primary" onclick="confirmPayment();">Đồng ý</button>
@@ -485,12 +495,14 @@
     function addBonus() {
       $("#txtBonusReason").val("");
       $("#txtBonusAmount").val("");
+      $("#txtBonusDate").val("");
       $("#addBonusModal").modal({ focus: true })
     }
 
     function addNote() {
       $("#txtNoteReason").val("");
       $("#txtNoteAmount").val("");
+      $("#txtNoteDate").val("");
       $("#addNoteModal").modal({ focus: true })
     }
 
@@ -535,6 +547,7 @@
         employeeId: id,
         reason: $('#txtNoteReason').val(),
         amount: Number($('#txtNoteAmount').val()),
+        date: $('#txtNoteDate').datepicker('getDate'),
         insertedAt: firebase.firestore.FieldValue.serverTimestamp()
       };
       db.collection("notes").add(data).then(function (docRef) {
@@ -553,6 +566,7 @@
         employeeId: id,
         reason: $('#txtBonusReason').val(),
         amount: Number($('#txtBonusAmount').val()),
+        date: $('#txtBonusDate').datepicker('getDate'),
         insertedAt: firebase.firestore.FieldValue.serverTimestamp()
       };
       db.collection("bonuses").add(data).then(function (docRef) {
@@ -563,6 +577,20 @@
       }).catch(function (error) {
         console.error("Error adding document: ", error);
       });
+    }
+
+    function showHistoryPayment(){
+      var id = employee.id;
+      db.collection("payments").where("employeeId", "==", id).get().then((docs) => {
+        var records = [];
+        docs.forEach((doc) => { records.push($.extend({ id: doc.id }, doc.data())) });
+        records.sort((a, b) => { return a.insertedAt < b.insertedAt; });
+        var htmlStr = "";
+        records.forEach((r, idx) => { htmlStr += '<tr phId="' + r.id + '"><td>'+(idx + 1)+'</td><td>' + toDateString(r.summary.fromDate) + '<br>'+toDateString(r.summary.toDate)+'</td><td>' + r.workHours + 'h</td><td>' + toMoneyString(r.summary.notesAmount) + '</td><td>' + toMoneyString(r.summary.bonusesAmount) + '</td><td>' + toMoneyString(r.total) + '</td></tr>'; });
+        $("#historyPaymentModal tbody").empty();
+        $(htmlStr).appendTo("#historyPaymentModal tbody");
+        $("#historyPaymentModal").modal({ focus: true })
+      }).catch(function (error) { console.log("Error getting documents:", error); });
     }
   </script>
 </body>
