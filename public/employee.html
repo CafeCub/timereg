@@ -20,8 +20,8 @@
       <a class="navbar-brand" href="employee-list.html">
         <i class="fa fa-arrow-left"></i>
       </a>
-      <span class="text-white font-weight-bold text-center" style="">Chi tiết nhân viên</span>
-      <button class="btn btn-info btn-sm mr-2" data-toggle="modal" data-target="#confirmPaymentModal">
+      <span class="text-white font-weight-bold text-center">Chi tiết nhân viên</span>
+      <button class="btn btn-info btn-sm mr-2" onclick="calculatePayment();">
         <i class="fa fa-hand-holding-usd"></i>
         <span class="d-none d-sm-inline-block">Trả lương</span>
       </button>
@@ -231,15 +231,24 @@
         <div class="modal-body">
           <p>Bạn đồng ý trả lương cho
             <br>
-            <span class="font-weight-bold">Nhân viên xxx</span>
+            <span class="font-weight-bold">Nhân viên
+              <span class="name">xxx</span>
+            </span>
             <br> Số tiền là
-            <span class="font-weight-bold">5.000.000 đ ?</span>
+            <span class="font-weight-bold total">5.000.000 đ ?</span>
             <br> Vào ngày
-            <span class="font-weight-bold">16/06/2018</span>
+            <span class="font-weight-bold date">16/06/2018</span>
           </p>
           <p>
             <i class="fas fa-exclamation-circle text-danger"></i> Ngày
-            <span class="font-weight-bold">16/06/2018</span> sẽ là ngày trả lương mới cho nhân viên xxx này?</p>
+            <span class="font-weight-bold date">16/06/2018</span> sẽ là ngày trả lương mới cho nhân viên này?</p>
+          <p>
+            Chi tiết: Số giờ làm việc:
+            <span class="work-time"></span>h; Mức lương:
+            <span class="rate"></span>; Thưởng:
+            <span class="bonus"></span>; Ghi chú: -
+            <span class="note"></span>
+          </p>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-primary" onclick="confirmPayment();">Đồng ý</button>
@@ -444,9 +453,9 @@
       db.collection("notes").where("employeeId", "==", eId).get().then((docs) => {
         var records = [];
         docs.forEach((doc) => { records.push($.extend({ id: doc.id }, doc.data())) });
-        records.sort((a, b) => { return a.insertedAt < b.insertedAt; });
+        records.sort((a, b) => { return (a.date || a.insertedAt) < (b.date || b.insertedAt); });
         var htmlStr = "";
-        records.forEach((r) => { htmlStr += '<tr nId="' + r.id + '"><td>' + toDateString(r.insertedAt) + '</td><td>' + r.reason + '</td><td>' + toMoneyString(r.amount) + '</td></tr>'; });
+        records.forEach((r) => { htmlStr += '<tr nId="' + r.id + '"><td>' + toDateString(r.date || r.insertedAt) + '</td><td>' + r.reason + '</td><td>' + toMoneyString(r.amount) + '</td></tr>'; });
         $("#tblNote tbody").empty();
         $(htmlStr).appendTo("#tblNote tbody");
       }).catch(function (error) { console.log("Error getting documents:", error); });
@@ -456,9 +465,9 @@
       db.collection("bonuses").where("employeeId", "==", eId).get().then((docs) => {
         var records = [];
         docs.forEach((doc) => { records.push($.extend({ id: doc.id }, doc.data())) });
-        records.sort((a, b) => { return a.insertedAt < b.insertedAt; });
+        records.sort((a, b) => { return (a.date || a.insertedAt) < (b.date || b.insertedAt); });
         var htmlStr = "";
-        records.forEach((r) => { htmlStr += '<tr nId="' + r.id + '"><td>' + toDateString(r.insertedAt) + '</td><td>' + r.reason + '</td><td>' + toMoneyString(r.amount) + '</td></tr>'; });
+        records.forEach((r) => { htmlStr += '<tr nId="' + r.id + '"><td>' + toDateString(r.date || r.insertedAt) + '</td><td>' + r.reason + '</td><td>' + toMoneyString(r.amount) + '</td></tr>'; });
         $("#tblBonus tbody").empty();
         $(htmlStr).appendTo("#tblBonus tbody");
       }).catch(function (error) { console.log("Error getting documents:", error); });
@@ -532,10 +541,10 @@
         updatedAt: firebase.firestore.FieldValue.serverTimestamp()
       };
       db.collection("employees").doc(id).update(data).then(function (docRef) {
-        console.log("Document update with ID: ", docRef.id);
+        console.log("Document update with ID: ", id);
         employee = $.extend(employee, data);
         updateEmployeeData(employee);
-        $('#addBonusModal').modal('hide');
+        $('#detailModal').modal('hide');
       }).catch(function (error) {
         console.error("Error adding document: ", error);
       });
@@ -579,18 +588,108 @@
       });
     }
 
-    function showHistoryPayment(){
+    function showHistoryPayment() {
       var id = employee.id;
       db.collection("payments").where("employeeId", "==", id).get().then((docs) => {
         var records = [];
         docs.forEach((doc) => { records.push($.extend({ id: doc.id }, doc.data())) });
         records.sort((a, b) => { return a.insertedAt < b.insertedAt; });
         var htmlStr = "";
-        records.forEach((r, idx) => { htmlStr += '<tr phId="' + r.id + '"><td>'+(idx + 1)+'</td><td>' + toDateString(r.summary.fromDate) + '<br>'+toDateString(r.summary.toDate)+'</td><td>' + r.workHours + 'h</td><td>' + toMoneyString(r.summary.notesAmount) + '</td><td>' + toMoneyString(r.summary.bonusesAmount) + '</td><td>' + toMoneyString(r.total) + '</td></tr>'; });
+        records.forEach((r, idx) => { htmlStr += '<tr phId="' + r.id + '"><td>' + (idx + 1) + '</td><td>' + toDateString(r.summary.fromDate) + '<br>' + toDateString(r.summary.toDate) + '</td><td>' + r.workHours + 'h</td><td>' + toMoneyString(r.summary.notesAmount) + '</td><td>' + toMoneyString(r.summary.bonusesAmount) + '</td><td>' + toMoneyString(r.total) + '</td></tr>'; });
         $("#historyPaymentModal tbody").empty();
         $(htmlStr).appendTo("#historyPaymentModal tbody");
-        $("#historyPaymentModal").modal({ focus: true })
+        $("#historyPaymentModal").modal({ focus: true });
       }).catch(function (error) { console.log("Error getting documents:", error); });
+    }
+
+    function calculatePayment() {
+      timeRegs = null; notes = null; bonuses = null; paymentHistory = null;
+      var id = employee.id;
+      db.collection("regTime").where("employeeId", "==", id).get().then((docs) => {
+        var records = [];
+        docs.forEach((doc) => { records.push($.extend({ id: doc.id }, doc.data())) });
+        records.sort((a, b) => { return a.insertedAt < b.insertedAt; });
+        timeRegs = records;
+        showPaymentResult();
+      }).catch(function (error) { console.log("Error getting documents:", error); });
+      db.collection("notes").where("employeeId", "==", id).get().then((docs) => {
+        var records = [];
+        docs.forEach((doc) => { records.push($.extend({ id: doc.id }, doc.data())) });
+        records.sort((a, b) => { return (a.date || a.insertedAt) < (b.date || b.insertedAt); });
+        notes = records;
+        showPaymentResult();
+      }).catch(function (error) { console.log("Error getting documents:", error); });
+      db.collection("bonuses").where("employeeId", "==", id).get().then((docs) => {
+        var records = [];
+        docs.forEach((doc) => { records.push($.extend({ id: doc.id }, doc.data())) });
+        records.sort((a, b) => { return (a.date || a.insertedAt) < (b.date || b.insertedAt); });
+        bonuses = records;
+        showPaymentResult();
+      }).catch(function (error) { console.log("Error getting documents:", error); });
+    }
+
+    function showPaymentResult() {
+      if (timeRegs && notes && bonuses) {
+        var workTime = 0, notesAmount = 0, bonusAmount = 0;
+        timeRegs.forEach((r) => { if (r.endAt && r.startAt) { workTime += r.endAt - r.startAt; } });
+        notes.forEach((r) => { notesAmount += r.amount; });
+        bonuses.forEach((r) => { bonusAmount += r.amount; });
+        workTime = Math.round(workTime / (10 * 3600)) / 100;
+        var total = workTime * employee.rate + bonusAmount - notesAmount;
+        $("#confirmPaymentModal span.name").text(employee.name);
+        $("#confirmPaymentModal span.date").text(toDateString(new Date()));
+        $("#confirmPaymentModal span.total").text(toMoneyString(total));
+        $("#confirmPaymentModal span.work-time").text(workTime);
+        $("#confirmPaymentModal span.rate").text(toMoneyString(employee.rate));
+        $("#confirmPaymentModal span.bonus").text(toMoneyString(bonusAmount));
+        $("#confirmPaymentModal span.note").text(toMoneyString(notesAmount));
+        paymentHistory = {
+          total: total,
+          workHours: workTime,
+          paidDate: firebase.firestore.FieldValue.serverTimestamp(),
+          rate: employee.rate,
+          employeeId: employee.id,
+          summary: {
+            bonusesAmount: bonusAmount,
+            notesAmount: notesAmount,
+            fromDate: timeRegs.length > 0 ? timeRegs[0].startAt : firebase.firestore.FieldValue.serverTimestamp(),
+            toDate: timeRegs.length > 0 ? timeRegs[timeRegs.length - 1].startAt : firebase.firestore.FieldValue.serverTimestamp(),
+            timeRegs: timeRegs,
+            notes: notes,
+            bonuses: bonuses
+          }
+        };
+        $("#confirmPaymentModal").modal({ focus: true });
+      }
+    }
+
+    function confirmPayment() {
+      db.collection("payments").add(paymentHistory).then(function (docRef) {
+        console.log("Document add with ID: ", docRef.id);
+        var batch = db.batch();
+        paymentHistory.summary.timeRegs.forEach((r) => { batch.delete(db.collection("regTime").doc(r.id)) });;
+        batch.commit().then(function (docRef) {
+          console.log("regTime documents are deleted");
+        }).catch(function (error) {
+          console.error("Error deleting regTime documents: ", error);
+        });
+        batch = db.batch();
+        paymentHistory.summary.notes.forEach((r) => { batch.delete(db.collection("notes").doc(r.id)) });;
+        batch.commit().then(function (docRef) {
+          console.log("notes documents are deleted");
+        }).catch(function (error) {
+          console.error("Error deleting note documents: ", error);
+        });
+        batch = db.batch();
+        paymentHistory.summary.bonuses.forEach((r) => { batch.delete(db.collection("bonuses").doc(r.id)) });;
+        batch.commit().then(function (docRef) {
+          console.log("bonus documents are deleted");
+        }).catch(function (error) {
+          console.error("Error deleting bonus documents: ", error);
+        });
+      }).catch(function (error) {
+        console.error("Error adding document: ", error);
+      });
     }
   </script>
 </body>
