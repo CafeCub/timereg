@@ -652,8 +652,8 @@
           summary: {
             bonusesAmount: bonusAmount,
             notesAmount: notesAmount,
-            fromDate: timeRegs.length > 0 ? timeRegs[0].startAt : firebase.firestore.FieldValue.serverTimestamp(),
-            toDate: timeRegs.length > 0 ? timeRegs[timeRegs.length - 1].startAt : firebase.firestore.FieldValue.serverTimestamp(),
+            toDate: timeRegs.length > 0 ? timeRegs[0].startAt : firebase.firestore.FieldValue.serverTimestamp(),
+            fromDate: timeRegs.length > 0 ? timeRegs[timeRegs.length - 1].startAt : firebase.firestore.FieldValue.serverTimestamp(),
             timeRegs: timeRegs,
             notes: notes,
             bonuses: bonuses
