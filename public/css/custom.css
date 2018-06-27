@@ -51,6 +51,9 @@ body{
   color: #fff;
   animation: fadeIn 1s infinite alternate;
 }
+.employee.working.over-8hours{
+    background: red;
+}
 .employee:active,.employee.working:active
 {
 	transform: translate(0px,5px);
