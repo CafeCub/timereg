@@ -63,7 +63,7 @@
     });
 
     function initialize(db) {
-      db.collection("employees").get().then((querySnapshot) => {
+      db.collection("employees").where("isActived", "==", true).get().then((querySnapshot) => {
         var htmlStr = "";
         querySnapshot.forEach((doc) => {
           var data = doc.data();
