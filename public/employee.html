@@ -330,6 +330,44 @@
     </div>
   </div>
 
+  <div id="addTimeRegModal" class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Thêm Ngày Làm Việc</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="form-group mb-0">
+              <input type="text" class="form-control-plaintext text-muted w-100" id="txtTimeRegId" placeholder="ID" readonly>
+            </div>
+            <div class="form-group mb-2">
+              <label for="txtTimeRegDate">Ngày</label>
+              <input type="text" class="form-control" id="txtTimeRegDate" placeholder="Ngày làm việc" data-provide="datepicker">
+            </div>
+            <div class="form-group mb-2">
+              <label for="txtFromHour">Giờ bắt đầu</label>
+              <input type="number" class="form-control" id="txtFromHour" placeholder="hh">
+              <input type="number" class="form-control" id="txtFromMinute" placeholder="mm">
+            </div>
+            <div class="form-group mb-2">
+              <label for="txtToHour">Giờ kết thúc</label>
+              <input type="number" class="form-control" id="txtToHour" placeholder="hh">
+              <input type="number" class="form-control" id="txtToMinute" placeholder="mm">
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" onclick="saveTimeReg();">Lưu lại</button>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Bỏ qua</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <div id="detailModal" class="modal" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
@@ -514,6 +552,11 @@
       $("#txtNoteAmount").val("");
       $("#txtNoteDate").val("");
       $("#addNoteModal").modal({ focus: true })
+    }
+
+        
+    function addTimeReg(){
+
     }
 
     function getUrlParameter(name) {
